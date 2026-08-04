@@ -17,7 +17,7 @@ export default function Hero({ heroRef, onGoTo }){
           data-rise
           className={`${h1Class} opacity-0 [font-size:clamp(34px,7.8vw,74px)] max-w-[900px] max-[480px]:[font-size:clamp(34px,10vw,48px)] max-[320px]:[font-size:clamp(28px,11vw,40px)]`}
         >
-          {cms?.heading ? <>{cms.heading.split(cms.highlightedText || 'Stronger')[0]}<span className="text-brand-red">{cms.highlightedText || 'Stronger'}</span>{cms.heading.split(cms.highlightedText || 'Stronger')[1]}</> : <>Smart Spaces.<br /><span className="text-brand-red">Stronger</span> Projects.</>}
+          {cms?.heading ? <>{cms.heading.split(cms.highlightedText || 'Stronger')[0]}<br /><span className="text-brand-red">{cms.highlightedText || 'Stronger'}</span>{cms.heading.split(cms.highlightedText || 'Stronger')[1]}</> : <>Smart Spaces.<br /><span className="text-brand-red">Stronger</span> Projects.</>}
         </h1>
         <p
           data-rise
