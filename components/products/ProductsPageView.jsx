@@ -8,10 +8,13 @@ import Header from '@/components/layout/Header.jsx';
 import Footer from '@/components/layout/Footer.jsx';
 import Toast from '@/components/layout/Toast.jsx';
 import ContactFormSection from '@/components/contact/ContactFormSection.jsx';
+import CabinLoading from '@/components/layout/CabinLoading.jsx';
 
 // three.js + fiber + drei + postprocessing are a heavy parse/exec cost —
 // dynamically imported client-only, same as the home page's Experience canvas.
-const ProductHeroCabin = dynamic(() => import('@/journey/showcase/ProductHeroCabin.jsx'), { ssr: false });
+// `loading` fills the frame with a spinner while that chunk downloads, so the
+// hero doesn't look stuck for the second or two before the canvas mounts.
+const ProductHeroCabin = dynamic(() => import('@/journey/showcase/ProductHeroCabin.jsx'), { ssr: false, loading: CabinLoading });
 
 import Scene from '@/journey/showcase/Scene.jsx';
 import CopyOverlay from '@/journey/showcase/CopyOverlay.jsx';
@@ -22,7 +25,7 @@ import { useProductsPage, useProductsSeo } from '@/lib/services/productsService.
 import { submitQuoteForm } from '@/lib/cms/quotes.js';
 import {
   wrapClass, eyebrowClass, eyebrowBarClass, h1Class, h2Class, scrollCueClass, scrollCueLineClass,
-  cardClass, btnPrimaryClass, btnGhostClass,
+  cardClass, btnPrimaryClass, btnGhostClass, cardBtnGhostClass,
 } from '@/lib/ui/classNames.js';
 
 export default function ProductsPageView({ initialData = null }){
@@ -139,7 +142,7 @@ export default function ProductsPageView({ initialData = null }){
               <p className="text-[#111] text-[16px] leading-[1.6] mb-[26px]">{cta?.description || 'Offices, security posts, bunk houses and store rooms — configured to your site, delivered across the region.'}</p>
               <div className="flex gap-[16px] mt-[34px] flex-wrap justify-center">
                 <a className={btnPrimaryClass} href={cta?.primaryButton?.link || 'mailto:sales@quadcabins.in'}>{cta?.primaryButton?.text || 'Request a quote'}</a>
-                <a className="font-barlow-condensed font-bold text-[15px] tracking-[0.08em] uppercase cursor-pointer border-2 transition-all duration-[220ms] ease-in-out inline-flex items-center gap-[10px] p-[16px_30px] border-[#111] text-[#111] bg-transparent hover:bg-[#111] hover:text-[#f7f7f5]" href={cta?.secondaryButton?.link || 'tel:+910000000000'}>{cta?.secondaryButton?.text || 'Call the works'}</a>
+                <a className={cardBtnGhostClass} href={cta?.secondaryButton?.link || 'tel:+910000000000'}>{cta?.secondaryButton?.text || 'Call the works'}</a>
               </div>
             </div>
           </div>

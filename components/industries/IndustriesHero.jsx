@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { useRef } from 'react';
 import { useCountUp } from '@/hooks/useCountUp.js';
 import { useCmsSection } from '@/lib/cms/CmsContext.js';
+import CabinLoading from '@/components/layout/CabinLoading.jsx';
 import {
   pageHeroSectionClass, pageHeroBgClass, pageHeroBgOverlayClass, pageHeroCopyClass, pageHeroH1Class, pageHeroSubClass, pageHeroCtasClass,
   pageHeroFlexClass, wrapClass, eyebrowClass, eyebrowBarClass, btnPrimaryClass, btnGhostClass, scrollCueClass, scrollCueLineClass,
@@ -15,7 +16,7 @@ import {
 
 // three.js + fiber + drei + postprocessing are a heavy parse/exec cost —
 // dynamically imported client-only, same as the Products page intro cabin.
-const IndustriesHeroCabin = dynamic(() => import('@/journey/showcase/IndustriesHeroCabin.jsx'), { ssr: false });
+const IndustriesHeroCabin = dynamic(() => import('@/journey/showcase/IndustriesHeroCabin.jsx'), { ssr: false, loading: CabinLoading });
 
 const trust = [
   { to: 6, suffix: '', label: 'Industries Served' },

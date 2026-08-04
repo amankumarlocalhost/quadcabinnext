@@ -71,9 +71,27 @@ function Ground({ mobile }){
 export default function Experience(){
   const mobile = useIsMobile();
 
+  // Hero text ([data-rise]) rides the exact same `journey.loaded` value that
+  // lights up the cabin below, instead of a separate timeline — so text and
+  // model are driven by one number and always land on screen together.
   useEffect(()=>{
     journey.loaded = 0;
-    const tween = gsap.to(journey, { loaded:1, duration:2.4, ease:'power2.inOut', delay:0.25 });
+    const riseEls = gsap.utils.toArray('[data-hero-overlay] [data-rise]');
+    gsap.set(riseEls, { opacity:0, y:24 });
+    // No per-element stagger offset — every element reads `journey.loaded`
+    // directly, same as the sun light, so text and model finish together
+    // with zero lag between them. `sine.out` keeps the tail smooth instead
+    // of the crawl-then-catch-up feel `power2.out` gave the staggered version.
+    const tween = gsap.to(journey, {
+      loaded:1, duration:0.6, ease:'sine.out',
+      onUpdate(){
+        const l = journey.loaded;
+        riseEls.forEach(el=>{
+          el.style.opacity = String(l);
+          el.style.transform = `translateY(${24*(1-l)}px)`;
+        });
+      },
+    });
     return ()=>tween.kill();
   }, []);
 

@@ -118,11 +118,11 @@ export function useJourneyScroll({ trackRef, heroRef, plateRef, lenisRef }){
     };
     gsap.ticker.add(hud);
 
-    // load: backdrop fades up, text rises in
+    // load: backdrop fades up. The hero text ([data-rise]) is no longer
+    // driven by its own timeline here — Experience.jsx ties it to the same
+    // `journey.loaded` tween that lights up the 3D cabin, so both arrive on
+    // screen together instead of the text beating the model in.
     const introBg = gsap.fromTo('[data-hero-bg]', { opacity:0 }, { opacity:1, duration:2.0, ease:'power2.inOut', delay:0.2 });
-    const intro = gsap.fromTo('[data-hero-overlay] [data-rise]',
-      { opacity:0, y:46 },
-      { opacity:1, y:0, duration:1.1, ease:'power3.out', stagger:0.12, delay:0.55 });
 
     // content reveals after the journey
     const reveals = [];
@@ -149,7 +149,6 @@ export function useJourneyScroll({ trackRef, heroRef, plateRef, lenisRef }){
       if(stage) stage.style.transform = '';
       st.kill();
       reveals.forEach(r=>r.scrollTrigger?.kill());
-      intro.kill();
       introBg.kill();
       gsap.ticker.remove(hud);
       gsap.ticker.remove(rafCb);

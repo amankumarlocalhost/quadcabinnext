@@ -2,9 +2,10 @@
 
 import dynamic from 'next/dynamic';
 import { useCmsSection } from '@/lib/cms/CmsContext.js';
-import { wrapClass, cardClass } from '@/lib/ui/classNames.js';
+import CabinLoading from '@/components/layout/CabinLoading.jsx';
+import { wrapClass } from '@/lib/ui/classNames.js';
 
-const ContactCabinScene = dynamic(() => import('@/journey/contact/ContactCabinScene.jsx'), { ssr: false });
+const ContactCabinScene = dynamic(() => import('@/journey/contact/ContactCabinScene.jsx'), { ssr: false, loading: CabinLoading });
 
 export default function ContactHero(){
   const cms = useCmsSection('hero');
@@ -25,23 +26,23 @@ export default function ContactHero(){
       <div className={`${wrapClass} relative z-1`}>
         <div className="relative z-1 items-center flex-wrap gap-[56px] flex max-[900px]:flex-col max-[900px]:items-stretch">
           <div
-            className={`${cardClass} relative border-l-[3px] border-l-brand-red text-brand-white [flex:1_1_380px] max-w-[460px] p-11 bg-[rgba(17,17,19,0.6)] backdrop-blur-[18px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.65)] transition-[transform,box-shadow] duration-300 ease-in-out hover:-translate-y-[3px] hover:shadow-[0_50px_110px_-30px_rgba(0,0,0,0.75),0_0_0_1px_rgba(225,27,35,0.18)] max-[900px]:max-w-full`}
+            className="relative rounded-[16px] border border-white/12 text-brand-white [flex:1_1_380px] max-w-[460px] p-11 bg-[linear-gradient(155deg,rgba(28,28,31,0.7),rgba(10,10,11,0.7))] backdrop-blur-[22px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.7),inset_0_1px_0_0_rgba(255,255,255,0.06)] transition-[transform,box-shadow] duration-300 ease-in-out hover:-translate-y-[3px] hover:shadow-[0_50px_110px_-30px_rgba(0,0,0,0.8),0_0_0_1px_rgba(225,27,35,0.22),inset_0_1px_0_0_rgba(255,255,255,0.06)] max-[900px]:max-w-full"
             data-rise
           >
-            {/* accent bar — replaces the old ::before pseudo-element */}
-            <span aria-hidden="true" className="absolute top-0 -left-[3px] w-[3px] h-[56px] bg-gradient-to-b from-brand-red to-transparent" />
+            {/* single accent — replaces the old double-marked left border + pseudo-bar */}
+            <span aria-hidden="true" className="absolute top-0 left-0 w-[72px] h-[3px] rounded-tl-[16px] bg-gradient-to-r from-brand-red to-transparent" />
             <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-brand-red flex items-center gap-[10px] mb-[18px]"><span className="w-[26px] h-[2px] bg-brand-red"></span>{cms?.eyebrow || 'Get In Touch'}</div>
             <h1 className="font-antonio font-bold tracking-[0.01em] uppercase leading-[0.95] [font-size:clamp(40px,6vw,68px)] mt-[14px] text-brand-white">{cms?.heading || <>Let&apos;s Talk<br/><span className="text-brand-red">Cabins</span>.</>}</h1>
-            <p className="text-[16.5px] mt-[18px] leading-[1.6] text-brand-off">
+            <p className="text-[16.5px] mt-[18px] leading-[1.6] text-white/65">
               {cms?.description || 'Tell us about your site and timeline — our team will get back with a configuration and a quote, usually within one business day.'}
             </p>
-            <ul className="list-none flex flex-col gap-[20px] p-0 mt-8">
+            <ul className="list-none flex flex-col gap-[12px] p-0 mt-9">
               {(contacts || [{ label:'Call', value:'+91 00000 00000', href:'tel:+910000000000' },{ label:'Email', value:'sales@quadcabins.in', href:'mailto:sales@quadcabins.in' },{ label:'Works', value:'Northeast India · Pan-India delivery' }]).map((item) => (
-                <li key={item.label} className="group flex flex-col gap-[4px] border-l-2 border-brand-line pl-[16px] transition-[border-color,transform] duration-[250ms] ease-in-out hover:translate-x-[3px] hover:border-brand-red">
-                  <span className="font-mono text-[11px] uppercase text-brand-steel tracking-[0.14em]">{item.label}</span>
+                <li key={item.label} className="group flex flex-col gap-[3px] rounded-[10px] border border-white/10 bg-white/[0.03] px-[16px] py-[12px] transition-all duration-[250ms] ease-in-out hover:bg-white/[0.06] hover:border-brand-red/45 hover:translate-x-[3px]">
+                  <span className="font-mono text-[10.5px] uppercase text-brand-steel tracking-[0.14em]">{item.label}</span>
                   {item.href
-                    ? <a className="font-barlow-condensed font-semibold text-[20px] no-underline text-brand-white transition-colors duration-300 ease-in-out group-hover:text-brand-red" href={item.href}>{item.value}</a>
-                    : <span className="font-barlow-condensed font-semibold text-[20px] no-underline text-brand-white">{item.value}</span>}
+                    ? <a className="font-barlow-condensed font-semibold text-[19px] no-underline text-brand-white transition-colors duration-300 ease-in-out group-hover:text-brand-red" href={item.href}>{item.value}</a>
+                    : <span className="font-barlow-condensed font-semibold text-[19px] no-underline text-brand-white">{item.value}</span>}
                 </li>
               ))}
             </ul>
