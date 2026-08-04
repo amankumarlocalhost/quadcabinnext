@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 
@@ -22,7 +22,7 @@ import CabinDots from '@/journey/showcase/CabinDots.jsx';
 import { useShowcaseScroll } from '@/journey/showcase/useShowcaseScroll.js';
 import { useCmsSection } from '@/lib/cms/CmsContext.js';
 import { useProductsPage, useProductsSeo } from '@/lib/services/productsService.js';
-import { submitQuoteForm } from '@/lib/cms/quotes.js';
+import { useQuoteStore } from '@/lib/store/quoteStore.js';
 import {
   wrapClass, eyebrowClass, eyebrowBarClass, h1Class, h2Class, scrollCueClass, scrollCueLineClass,
   cardClass, btnPrimaryClass, btnGhostClass, cardBtnGhostClass,
@@ -53,7 +53,9 @@ export default function ProductsPageView({ initialData = null }){
   const router = useRouter();
   const trackRef = useRef(null);
   const heroRef = useRef(null);
-  const [toast, setToast] = useState(false);
+  const toast = useQuoteStore((s) => s.toast);
+  const dismissToast = useQuoteStore((s) => s.dismissToast);
+  const submitQuote = useQuoteStore((s) => s.submit);
 
   useShowcaseScroll({ trackRef, heroRef, productsData });
 
@@ -64,17 +66,9 @@ export default function ProductsPageView({ initialData = null }){
     }, 60);
   };
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    try {
-      await submitQuoteForm(form, 'products');
-      form.reset();
-      setToast(true);
-      setTimeout(() => setToast(false), 3200);
-    } catch (error) {
-      window.alert(error.message);
-    }
+    submitQuote(e.currentTarget, 'products');
   };
 
   return (
@@ -152,7 +146,7 @@ export default function ProductsPageView({ initialData = null }){
       </main>
 
       <Footer />
-      <Toast show={toast} onClose={() => setToast(false)}>{"Thanks — we'll get back to you shortly."}</Toast>
+      <Toast show={toast} onClose={dismissToast}>{"Thanks — we'll get back to you shortly."}</Toast>
     </>
   );
 }

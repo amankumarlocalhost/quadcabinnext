@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useJourneyAudio } from '@/journey/audio.js';
@@ -23,7 +23,7 @@ import ContactSection from '@/components/home/ContactSection.jsx';
 
 import { products } from '@/lib/data/products.js';
 import { useCmsSection } from '@/lib/cms/CmsContext.js';
-import { submitQuoteForm } from '@/lib/cms/quotes.js';
+import { useQuoteStore } from '@/lib/store/quoteStore.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,7 +38,9 @@ export default function HomePageView() {
   const lenisRef = useRef(null);
   const plateRef = useRef(null);
 
-  const [toast, setToast] = useState(false);
+  const toast = useQuoteStore((s) => s.toast);
+  const dismissToast = useQuoteStore((s) => s.dismissToast);
+  const submitQuote = useQuoteStore((s) => s.submit);
 
   const audio = useJourneyAudio();
 
@@ -69,17 +71,9 @@ export default function HomePageView() {
     });
   };
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    try {
-      await submitQuoteForm(form, 'home');
-      form.reset();
-      setToast(true);
-      setTimeout(() => setToast(false), 3200);
-    } catch (error) {
-      window.alert(error.message);
-    }
+    submitQuote(e.currentTarget, 'home');
   };
 
   return (
@@ -139,7 +133,7 @@ export default function HomePageView() {
 
       <Footer />
 
-      <Toast show={toast} onClose={() => setToast(false)}>
+      <Toast show={toast} onClose={dismissToast}>
         {formContent?.successMessage || "Quote request received — we'll call you shortly."}
       </Toast>
     </>

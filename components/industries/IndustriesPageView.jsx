@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Header from '@/components/layout/Header.jsx';
@@ -14,28 +14,22 @@ import IndustriesCTASection from '@/components/industries/IndustriesCTASection.j
 
 import { useAboutScroll } from '@/hooks/useAboutScroll.js';
 import { useIndustriesPage, useIndustriesSeo } from '@/lib/services/industriesService.js';
-import { submitQuoteForm } from '@/lib/cms/quotes.js';
+import { useQuoteStore } from '@/lib/store/quoteStore.js';
 
 export default function IndustriesPageView({ initialData = null }){
   const router = useRouter();
   const lenisRef = useRef(null);
   const industriesPage = useIndustriesPage(initialData);
   useIndustriesSeo(industriesPage);
-  const [toast, setToast] = useState(false);
+  const toast = useQuoteStore((s) => s.toast);
+  const dismissToast = useQuoteStore((s) => s.dismissToast);
+  const submitQuote = useQuoteStore((s) => s.submit);
 
   useAboutScroll(lenisRef);
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    try {
-      await submitQuoteForm(form, 'industries');
-      form.reset();
-      setToast(true);
-      setTimeout(() => setToast(false), 3200);
-    } catch (error) {
-      window.alert(error.message);
-    }
+    submitQuote(e.currentTarget, 'industries');
   };
 
   return (
@@ -50,7 +44,7 @@ export default function IndustriesPageView({ initialData = null }){
       </main>
 
       <Footer />
-      <Toast show={toast} onClose={() => setToast(false)}>{"Thanks — we'll get back to you shortly."}</Toast>
+      <Toast show={toast} onClose={dismissToast}>{"Thanks — we'll get back to you shortly."}</Toast>
     </>
   );
 }
