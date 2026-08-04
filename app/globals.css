@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* Design tokens only — every component below styles itself with Tailwind
+   utility classNames. Nothing here is a hand-written component class. */
+@theme {
+  --color-brand-black: #0a0a0b;
+  --color-brand-panel: #111113;
+  --color-brand-charcoal: #1c1c1f;
+  --color-brand-line: #2b2b2f;
+  --color-brand-white: #f7f7f5;
+  --color-brand-off: #c9c9c6;
+  --color-brand-steel: #8b8f94;
+  --color-brand-red: #e11b23;
+  --color-brand-red-dark: #9e0e15;
+  --color-brand-yellow: #ffc400;
+
+  /* values point at the CSS custom properties next/font attaches to <html>
+     in app/layout.js — keeps font loading/optimization on Next's font
+     pipeline while the `font-anton` etc. Tailwind utilities stay identical */
+  --font-anton: var(--font-anton-nf), sans-serif;
+  --font-antonio: var(--font-antonio-nf), sans-serif;
+  --font-barlow: var(--font-barlow-nf), sans-serif;
+  --font-barlow-condensed: var(--font-barlow-condensed-nf), sans-serif;
+  --font-mono: var(--font-jetbrains-mono-nf), monospace;
+}
+
+/* ::selection cannot be targeted with a className (no real DOM element to
+   attach one to) — the one CSS rule Tailwind utilities structurally can't
+   express. */
+::selection {
+  background: var(--color-brand-red);
+  color: var(--color-brand-white);
+}
+
+/* Keyframes: Tailwind's `animate-*` utilities reference a keyframes name,
+   but the @keyframes body itself has no className form — it must live in
+   CSS. These are ported 1:1 from the previous index.css and are referenced
+   via Tailwind arbitrary values, e.g. className="animate-[pulse_1.8s_infinite]". */
+@keyframes pulse { 0% { opacity: .2; } 50% { opacity: 1; } 100% { opacity: .2; } }
+@keyframes hint-fade { from { opacity: 0; transform: translate(-50%, 6px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes cabin-swipe-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-4px); } }
+@keyframes mobile-menu-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes t2-fade-in { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: scale(1); } }
+@keyframes t2-copy-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes t-fill { from { width: 0%; } to { width: 100%; } }
+@keyframes cta-pulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
