@@ -57,26 +57,39 @@ export default function CopyOverlay({ onGoTo, productsData }){
     <div className="fixed inset-0 z-3 pointer-events-none max-[900px]:z-41">
       {panels.map((p, i)=>(
         <div
-          className="absolute left-[34px] top-1/2 opacity-0 invisible pointer-events-auto will-change-[opacity,transform] border border-brand-line border-l-[3px] border-l-brand-red max-w-[460px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.6)] bg-[rgba(230,230,228,0.92)] backdrop-blur-[10px] p-10 text-[#111]
-            max-[900px]:left-[12px] max-[900px]:right-[12px] max-[900px]:top-auto max-[900px]:bottom-[12px] max-[900px]:max-w-full max-[900px]:p-[18px_18px_16px] max-[900px]:max-h-[48vh] max-[900px]:overflow-y-auto max-[900px]:border-l-0 max-[900px]:border-t-[3px] max-[900px]:border-t-brand-red max-[900px]:rounded-xl max-[900px]:shadow-[0_-18px_50px_-18px_rgba(0,0,0,0.75)]"
+          className="absolute left-[34px] top-1/2 opacity-0 invisible pointer-events-auto will-change-[opacity,transform] overflow-y-auto overflow-x-hidden rounded-[10px] max-w-[460px] max-h-[86vh] shadow-[0_50px_120px_-30px_rgba(0,0,0,0.55)] bg-[rgba(247,247,245,0.96)] backdrop-blur-[18px] border border-black/8 p-[32px_36px] text-[#111]
+            max-[900px]:left-[12px] max-[900px]:right-[12px] max-[900px]:top-auto max-[900px]:bottom-[12px] max-[900px]:max-w-full max-[900px]:p-[18px_18px_16px] max-[900px]:max-h-[50vh] max-[900px]:rounded-2xl max-[900px]:shadow-[0_-18px_50px_-18px_rgba(0,0,0,0.5)]"
           key={i}
           ref={el=>refs.current[i]=el}
           style={{ transform: 'translateY(-50%)' }}
         >
-          {/* accent bar — real element replacing the old ::before pseudo-element */}
-          <span aria-hidden="true" className="absolute top-0 -left-[3px] w-[3px] h-[56px] bg-gradient-to-b from-brand-red to-transparent max-[900px]:hidden" />
-          <div className="font-mono text-[12px] text-[#111] tracking-[0.1em] mb-[8px] max-[900px]:mb-[6px]">{p.model}</div>
-          <h2 className="font-barlow-condensed font-bold tracking-[0.01em] uppercase leading-[0.95] text-[#111] [font-size:clamp(28px,3.8vw,46px)] mb-[14px] max-[900px]:text-[24px] max-[900px]:mb-[8px]">{p.title}</h2>
-          <p className="text-[#111] text-[15.5px] leading-[1.6] mb-[22px] max-[900px]:text-[13.5px] max-[900px]:leading-[1.5] max-[900px]:mb-[14px]">{p.desc}</p>
-          <ul className="list-none grid mb-[8px] [grid-template-columns:minmax(0,1fr)_minmax(0,1fr)] gap-x-5 gap-y-3.5 max-[900px]:grid-cols-2 max-[900px]:gap-x-[14px] max-[900px]:gap-y-2 max-[900px]:mb-[14px]">
+          {/* ghost index numeral, bleeding off the top-right corner */}
+          <span aria-hidden="true" className="absolute -top-[0.22em] -right-[0.06em] font-anton leading-none text-transparent [-webkit-text-stroke:1.5px_rgba(0,0,0,0.07)] text-[120px] pointer-events-none select-none max-[900px]:text-[80px]">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <div aria-hidden="true" className="absolute inset-0 -z-1 pointer-events-none bg-[radial-gradient(60%_50%_at_0%_0%,rgba(225,27,35,0.07),transparent_70%)]" />
+          {/* left accent rail */}
+          <span aria-hidden="true" className="absolute left-0 top-[28px] bottom-[28px] w-[3px] bg-gradient-to-b from-brand-red via-brand-red to-transparent max-[900px]:hidden" />
+
+          <div className="flex items-center gap-[10px] mb-[16px] max-[900px]:mb-[8px]">
+            <span className="font-anton text-brand-red text-[14px] leading-none">{String(i + 1).padStart(2, '0')}</span>
+            <span className="h-px flex-1 bg-black/12" />
+            <span className="font-mono text-[10.5px] text-[#555] tracking-[0.14em] uppercase">{p.model}</span>
+          </div>
+
+          <h2 className="font-barlow-condensed font-bold tracking-[0.01em] uppercase leading-[0.95] text-[#111] [font-size:clamp(26px,3.4vw,40px)] mb-[12px] max-[900px]:text-[22px] max-[900px]:mb-[8px]">{p.title}</h2>
+          <p className="text-[#333] text-[14.5px] leading-[1.55] mb-[18px] max-[900px]:text-[13px] max-[900px]:leading-[1.5] max-[900px]:mb-[12px]">{p.desc}</p>
+
+          <div className="flex flex-wrap gap-[8px] mb-[22px] max-[900px]:gap-[6px] max-[900px]:mb-[14px]">
             {p.specs.map(s => (
-              <li key={s} className="font-barlow-condensed text-[15px] font-semibold tracking-[0.02em] text-[#111] flex items-center gap-[9px] uppercase max-[900px]:text-[12.5px] max-[900px]:gap-[7px] before:content-[''] before:w-[8px] before:h-[8px] before:bg-brand-red before:flex-none">
+              <span key={s} className="font-mono text-[10px] font-medium tracking-[0.05em] text-[#444] uppercase border border-black/12 rounded-full px-[12px] py-[6px] bg-black/[0.02] max-[900px]:text-[9.5px] max-[900px]:px-[10px] max-[900px]:py-[5px]">
                 {s}
-              </li>
+              </span>
             ))}
-          </ul>
+          </div>
+
           <button
-            className="font-barlow-condensed font-bold text-[15px] tracking-[0.08em] uppercase cursor-pointer border-2 transition-all duration-[220ms] ease-in-out inline-flex items-center gap-[10px] p-[16px_30px] border-[#111] text-[#111] bg-transparent transition-[transform,background,color] hover:bg-[#111] hover:text-[#f7f7f5] hover:-translate-y-0.5 max-[900px]:p-[12px_20px] max-[900px]:text-[13px]"
+            className="group relative font-barlow-condensed font-bold text-[13px] tracking-[0.08em] uppercase cursor-pointer rounded-[6px] bg-[#111] text-[#f7f7f5] transition-all duration-[220ms] ease-out inline-flex items-center gap-[10px] p-[13px_26px] hover:bg-brand-red hover:text-brand-white hover:-translate-y-[2px] hover:shadow-[0_16px_34px_-14px_rgba(225,27,35,0.5)] active:scale-[0.97] max-[900px]:p-[11px_18px] max-[900px]:text-[12px]"
             onClick={() => {
               const link = p.button?.link || '#contact';
               if (link.startsWith('#')) onGoTo(link);
@@ -84,6 +97,7 @@ export default function CopyOverlay({ onGoTo, productsData }){
             }}
           >
             {p.button?.text || 'Enquire About This Cabin'}
+            <span aria-hidden="true" className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-[3px]">→</span>
           </button>
         </div>
       ))}
