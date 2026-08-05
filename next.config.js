@@ -14,6 +14,23 @@ const nextConfig = {
   async rewrites() {
     return [{ source: `${apiUrlPath}/:path*`, destination: `${API_URL}/:path*` }];
   },
+  // CMS-managed redirects (admin panel -> Redirects). Next.js resolves this
+  // once at build/config-eval time, not per-request, so a redirect added in
+  // the admin panel only takes effect after the next deploy — not live.
+  async redirects() {
+    try {
+      const response = await fetch(`${API_URL}/redirects`);
+      if (!response.ok) return [];
+      const payload = await response.json();
+      return (payload.data || []).map((redirect) => ({
+        source: redirect.from,
+        destination: redirect.to,
+        permanent: redirect.statusCode === 301,
+      }));
+    } catch {
+      return [];
+    }
+  },
 };
 
 export default nextConfig;

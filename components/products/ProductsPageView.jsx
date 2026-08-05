@@ -21,7 +21,7 @@ import CopyOverlay from '@/journey/showcase/CopyOverlay.jsx';
 import CabinDots from '@/journey/showcase/CabinDots.jsx';
 import { useShowcaseScroll } from '@/journey/showcase/useShowcaseScroll.js';
 import { useCmsSection } from '@/lib/cms/CmsContext.js';
-import { useProductsPage, useProductsSeo } from '@/lib/services/productsService.js';
+import { useProductsPage } from '@/lib/services/productsService.js';
 import { useQuoteStore } from '@/lib/store/quoteStore.js';
 import {
   wrapClass, eyebrowClass, eyebrowBarClass, h1Class, h2Class, scrollCueClass, scrollCueLineClass,
@@ -33,7 +33,6 @@ export default function ProductsPageView({ initialData = null }){
   const legacyProducts = useCmsSection('products');
   const legacyCta = useCmsSection('cta');
   const productsPage = useProductsPage(initialData);
-  useProductsSeo(productsPage);
   const intro = productsPage?.hero || {
     smallTitle: legacyIntro?.eyebrow, mainHeading: legacyIntro?.heading,
     highlightedText: legacyIntro?.highlightedText, description: legacyIntro?.description,

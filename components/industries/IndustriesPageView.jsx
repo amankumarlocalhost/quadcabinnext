@@ -13,14 +13,13 @@ import IndustriesShowcase from '@/components/industries/IndustriesShowcase.jsx';
 import IndustriesCTASection from '@/components/industries/IndustriesCTASection.jsx';
 
 import { useAboutScroll } from '@/hooks/useAboutScroll.js';
-import { useIndustriesPage, useIndustriesSeo } from '@/lib/services/industriesService.js';
+import { useIndustriesPage } from '@/lib/services/industriesService.js';
 import { useQuoteStore } from '@/lib/store/quoteStore.js';
 
 export default function IndustriesPageView({ initialData = null }){
   const router = useRouter();
   const lenisRef = useRef(null);
   const industriesPage = useIndustriesPage(initialData);
-  useIndustriesSeo(industriesPage);
   const toast = useQuoteStore((s) => s.toast);
   const dismissToast = useQuoteStore((s) => s.dismissToast);
   const submitQuote = useQuoteStore((s) => s.submit);

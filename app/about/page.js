@@ -7,10 +7,26 @@ const FALLBACK_DESCRIPTION = "We design and manufacture premium portable and mod
 
 export async function generateMetadata() {
   const page = await fetchCmsPage('about');
+  const seo = page?.seo || {};
+  const title = seo.title || FALLBACK_TITLE;
+  const description = seo.description || FALLBACK_DESCRIPTION;
   return {
-    title: page?.seo?.title || FALLBACK_TITLE,
-    description: page?.seo?.description || FALLBACK_DESCRIPTION,
-    alternates: { canonical: '/about' },
+    title,
+    description,
+    keywords: seo.keywords?.length ? seo.keywords : undefined,
+    alternates: { canonical: seo.canonicalUrl || '/about' },
+    robots: seo.noIndex ? { index: false, follow: false } : undefined,
+    openGraph: {
+      title: seo.og?.title || title,
+      description: seo.og?.description || description,
+      images: seo.og?.image?.url ? [seo.og.image.url] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.twitter?.title || seo.og?.title || title,
+      description: seo.twitter?.description || seo.og?.description || description,
+      images: seo.twitter?.image?.url ? [seo.twitter.image.url] : undefined,
+    },
   };
 }
 
