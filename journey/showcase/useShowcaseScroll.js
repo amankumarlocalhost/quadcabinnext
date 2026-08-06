@@ -21,6 +21,8 @@ export function useShowcaseScroll({ trackRef, heroRef, productsData }){
     showcase.target = 0;
     showcase.p = 0;
     const lenis = new Lenis({ duration: 1.2, smoothWheel: true });
+    // Force the page to actually start at the top — see useJourneyScroll.js.
+    lenis.scrollTo(0, { immediate: true });
     lenis.on('scroll', ScrollTrigger.update);
     const rafCb = (time)=>lenis.raf(time*1000);
     gsap.ticker.add(rafCb);

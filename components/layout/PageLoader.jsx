@@ -30,6 +30,15 @@ export default function PageLoader(){
   const [leaving, setLeaving] = useState(false);
   const shownAtRef = useRef(0);
 
+  // Stop the browser from "helpfully" restoring a previous scroll position
+  // on navigation — each page's own Lenis instance already forces itself
+  // to 0 on mount (see useJourneyScroll/useAboutScroll/useShowcaseScroll),
+  // this just makes sure the browser doesn't fight that.
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
+  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+
   // New page: show the loader again (first load of this tab only) and
   // reset the scene-ready signal.
   useEffect(() => {

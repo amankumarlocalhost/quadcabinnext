@@ -24,6 +24,11 @@ export function useJourneyScroll({ trackRef, heroRef, plateRef, lenisRef }){
   useEffect(()=>{
     const lenis = new Lenis({ duration: 1.25, smoothWheel: true });
     lenisRef.current = lenis;
+    // Force the page to actually start at the top — Lenis otherwise adopts
+    // whatever the native scrollY already was at construction time (stale
+    // browser scroll-restoration on a fresh navigation, or leftover offset
+    // from the previous page), which read as "landing mid-page".
+    lenis.scrollTo(0, { immediate: true });
     lenis.on('scroll', ScrollTrigger.update);
     const rafCb = (time)=>lenis.raf(time*1000);
     gsap.ticker.add(rafCb);
