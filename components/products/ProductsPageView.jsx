@@ -82,14 +82,14 @@ export default function ProductsPageView({ initialData = null }){
       >
         {/* soft depth wash — replaces the old ::before pseudo-element */}
         <div aria-hidden="true" className="absolute inset-0 -z-1 pointer-events-none bg-[radial-gradient(48%_60%_at_18%_46%,rgba(225,27,35,0.05),transparent_70%),radial-gradient(55%_65%_at_82%_50%,rgba(255,255,255,0.045),transparent_72%)]" />
-        <div className={`${wrapClass} max-[900px]:px-[20px] flex items-center justify-between gap-[56px] min-[901px]:max-[1366px]:gap-[30px] max-[900px]:flex-col max-[900px]:items-start max-[900px]:justify-center max-[900px]:gap-[22px]`}>
+        <div className={`${wrapClass} max-[900px]:px-[20px] flex items-center justify-between gap-[clamp(30px,3.5vw,56px)] max-[900px]:flex-col max-[900px]:items-start max-[900px]:justify-center max-[900px]:gap-[22px]`}>
           <div className="max-w-[600px] pointer-events-auto">
             <div className={eyebrowClass}><span className={eyebrowBarClass}></span>{intro?.smallTitle || 'Our Cabins'}</div>
             <h1 className={`${h1Class} [font-size:clamp(34px,7.4vw,72px)] max-w-[760px] mt-[14px] max-[900px]:mt-[10px]`}>
               {intro?.mainHeading ? <>{intro.mainHeading.split(intro.highlightedText || 'walk-around')[0]}<span className="text-brand-red">{intro.highlightedText || 'walk-around'}</span>{intro.mainHeading.split(intro.highlightedText || 'walk-around')[1]}</> : <>Four cabins.<br/>One <span className="text-brand-red">walk-around</span>.</>}
             </h1>
-            <p className="text-[17px] text-brand-off max-w-[460px] mt-[18px]">{intro?.description || 'Explore the full Quad Cabins range — Site Office, Labour Accommodation, Conference and Storage.'}</p>
-            <div className="flex mt-[26px] border-t border-white/14 max-w-[460px] min-[901px]:max-[1366px]:max-w-[400px] max-[900px]:hidden">
+            <p className="text-[17px] text-brand-off max-w-[clamp(320px,38vw,460px)] mt-[18px]">{intro?.description || 'Explore the full Quad Cabins range — Site Office, Labour Accommodation, Conference and Storage.'}</p>
+            <div className="flex mt-[26px] border-t border-white/14 max-w-[clamp(400px,34vw,460px)] max-[900px]:hidden">
               <div className="flex-1 border-l border-white/14 pt-[14px] px-[14px] first:border-l-0 first:pl-0"><strong className="block font-anton text-[24px] text-brand-white leading-none">360°</strong><span className="block mt-[6px] font-mono text-[9.5px] tracking-[0.08em] uppercase text-brand-steel leading-[1.4]">Drag to rotate</span></div>
               <div className="flex-1 border-l border-white/14 pt-[14px] px-[14px]"><strong className="block font-anton text-[24px] text-brand-white leading-none">4</strong><span className="block mt-[6px] font-mono text-[9.5px] tracking-[0.08em] uppercase text-brand-steel leading-[1.4]">Cabin ranges</span></div>
               <div className="flex-1 border-l border-white/14 pt-[14px] px-[14px]"><strong className="block font-anton text-[24px] text-brand-white leading-none">PBR</strong><span className="block mt-[6px] font-mono text-[9.5px] tracking-[0.08em] uppercase text-brand-steel leading-[1.4]">Real-material render</span></div>
@@ -103,7 +103,7 @@ export default function ProductsPageView({ initialData = null }){
               <span className={scrollCueLineClass}></span>
             </div>
           </div>
-          <div className="relative flex-none pointer-events-auto w-[min(42vw,600px)] min-[901px]:max-[1366px]:w-[min(38vw,460px)] max-[900px]:pointer-events-auto max-[900px]:self-center max-[900px]:w-[min(92vw,430px)] [@media(max-width:900px)_and_(max-height:640px)]:hidden">
+          <div className="relative flex-none pointer-events-auto w-[clamp(420px,42vw,600px)] max-[900px]:pointer-events-auto max-[900px]:self-center max-[900px]:w-[min(92vw,430px)] [@media(max-width:900px)_and_(max-height:640px)]:hidden">
             <div aria-hidden="true" className="absolute -z-1 pointer-events-none [inset:-14%] bg-[radial-gradient(58%_58%_at_50%_52%,rgba(225,27,35,0.16),transparent_68%)] blur-[6px]" />
             <div className="relative aspect-[5/4] max-[900px]:max-h-[38vh] [&>canvas]:w-full! [&>canvas]:h-full! [&>canvas]:block [filter:saturate(0.92)_contrast(1.06)_brightness(0.96)]">
               <ProductHeroCabin />

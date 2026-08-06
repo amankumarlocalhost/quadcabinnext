@@ -20,36 +20,40 @@ function noiseTex(size, base, spread){
 }
 const hardwareRough = noiseTex(64, 150, 70);
 
-export const steelDark = new THREE.MeshStandardMaterial({color:0x232326, roughness:0.48, roughnessMap:hardwareRough, metalness:0.65, envMapIntensity:0.85});
+export const steelDark = new THREE.MeshStandardMaterial({color:0x232326, roughness:0.42, roughnessMap:hardwareRough, metalness:0.7, envMapIntensity:1.05});
 /* satin/anodized aluminum — lower metalness than raw chrome so it reads as a
    consistent light silver under any environment, not a mirror that goes
-   black whenever it isn't catching a highlight */
+   black whenever it isn't catching a highlight. Tightened roughness + added
+   clearcoat gloss so it picks up crisper, more premium highlight streaks
+   instead of a soft matte sheen. */
 export const aluminum = new THREE.MeshPhysicalMaterial({
-  color:0xdadde0, roughness:0.4, roughnessMap:hardwareRough, metalness:0.5, envMapIntensity:0.9,
-  clearcoat:0.15, clearcoatRoughness:0.35,
+  color:0xdadde0, roughness:0.3, roughnessMap:hardwareRough, metalness:0.55, envMapIntensity:1.15,
+  clearcoat:0.35, clearcoatRoughness:0.2,
 });
-export const blackMetal = new THREE.MeshStandardMaterial({color:0x121214, roughness:0.55, roughnessMap:hardwareRough, metalness:0.55, envMapIntensity:0.6});
+export const blackMetal = new THREE.MeshStandardMaterial({color:0x121214, roughness:0.5, roughnessMap:hardwareRough, metalness:0.6, envMapIntensity:0.8});
+/* premium automotive-style paint: higher clearcoat + lower clearcoat
+   roughness reads as a glossy lacquered finish rather than flat matte paint */
 export const redPaint = new THREE.MeshPhysicalMaterial({
-  color:0xd91820, roughness:0.32, metalness:0.14, envMapIntensity:0.85,
-  clearcoat:0.4, clearcoatRoughness:0.22,
+  color:0xd91820, roughness:0.28, metalness:0.14, envMapIntensity:1.05,
+  clearcoat:0.65, clearcoatRoughness:0.08,
 });
 export const concrete = new THREE.MeshStandardMaterial({color:0x8f8d88, roughness:0.95, metalness:0, envMapIntensity:0.25});
 export const chassis = new THREE.MeshStandardMaterial({color:0x2a2b2f, roughness:0.68, metalness:0.5, envMapIntensity:0.5});
 export const roofMetal = new THREE.MeshPhysicalMaterial({
   map:roofTex, normalMap:roofNormalTex, normalScale:new THREE.Vector2(0.7,0.7),
-  roughnessMap:roofRoughTex, roughness:0.35, metalness:0.65, envMapIntensity:1.1,
-  clearcoat:0.2, clearcoatRoughness:0.35,
+  roughnessMap:roofRoughTex, roughness:0.28, metalness:0.68, envMapIntensity:1.35,
+  clearcoat:0.3, clearcoatRoughness:0.25,
 });
 
 export const glassMat = new THREE.MeshPhysicalMaterial({
-  color:0xdcecf4, roughness:0.03, metalness:0,
-  transparent:true, opacity:0.32, envMapIntensity:1.1,
-  reflectivity:0.65, ior:1.52, side:THREE.DoubleSide, depthWrite:false, fog:false,
+  color:0xdcecf4, roughness:0.02, metalness:0,
+  transparent:true, opacity:0.32, envMapIntensity:1.35,
+  reflectivity:0.75, ior:1.52, side:THREE.DoubleSide, depthWrite:false, fog:false,
 });
 export const glassTint = new THREE.MeshPhysicalMaterial({
-  color:0xa8cbe0, roughness:0.035, metalness:0,
-  transparent:true, opacity:0.26, envMapIntensity:1.05,
-  reflectivity:0.6, ior:1.52, side:THREE.DoubleSide, depthWrite:false, fog:false,
+  color:0xa8cbe0, roughness:0.025, metalness:0,
+  transparent:true, opacity:0.26, envMapIntensity:1.3,
+  reflectivity:0.7, ior:1.52, side:THREE.DoubleSide, depthWrite:false, fog:false,
 });
 
 /* interior */

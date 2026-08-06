@@ -45,7 +45,7 @@ export default function IndustriesHero({ data }){
       {/* soft depth wash — replaces the old #industries-hero::before pseudo-element */}
       <div aria-hidden="true" className="absolute inset-0 -z-1 pointer-events-none bg-[radial-gradient(46%_60%_at_16%_42%,rgba(225,27,35,0.055),transparent_70%),radial-gradient(55%_62%_at_84%_52%,rgba(232,180,0,0.045),transparent_72%)]" />
       <div className={`${wrapClass} ${pageHeroFlexClass}`}>
-        <div className={`${pageHeroCopyClass} max-w-[600px] max-[900px]:max-w-full`}>
+        <div className={`${pageHeroCopyClass} max-w-[clamp(440px,42vw,600px)] max-[900px]:max-w-full`}>
           <div className={eyebrowClass} data-rise><span className={eyebrowBarClass}></span>{cms?.eyebrow || 'Industries We Serve'}</div>
           <h1 className={pageHeroH1Class} data-rise>{cms?.heading ? <>{cms.heading.split(cms.highlightedText || 'Engineered')[0]}<span className="text-brand-red">{cms.highlightedText || 'Engineered'}</span>{cms.heading.split(cms.highlightedText || 'Engineered')[1]}</> : <>Built for Every Site. <span className="text-brand-red">Engineered</span> for Every Sector.</>}</h1>
           <p className={pageHeroSubClass} data-rise>

@@ -15,8 +15,8 @@ export default function IndustriesCTASection({ data }){
       <div className={wrapClass}>
         <div className="text-center" data-reveal>
           <div className={`${eyebrowClass} justify-center`}><span className={eyebrowBarClass}></span>{cms?.eyebrow || "Don't See Your Sector?"}</div>
-          <h2 className={`${h2Class} [font-size:clamp(32px,5.6vw,60px)] max-w-[820px] mx-auto`}>{cms?.heading || "We'll Still Build For It."}</h2>
-          <p className="mt-[18px] mx-auto max-w-[560px] text-brand-off text-[18px]">
+          <h2 className={`${h2Class} [font-size:clamp(32px,5.6vw,60px)] max-w-[clamp(600px,64vw,820px)] mx-auto`}>{cms?.heading || "We'll Still Build For It."}</h2>
+          <p className="mt-[18px] mx-auto max-w-[clamp(360px,44vw,560px)] text-brand-off text-[18px]">
             {cms?.description || "Every cabin we ship starts as a custom spec conversation. Tell us your industry, your site conditions and your timeline — we'll configure a build around it."}
           </p>
           <div className="flex gap-[16px] mt-[34px] flex-wrap justify-center">

@@ -12,8 +12,8 @@ export default function AboutCTASection({ onSubmit }){
         <div className={wrapClass}>
           <div className="text-center" data-reveal>
             <div className={`${eyebrowClass} justify-center`}><span className={eyebrowBarClass}></span>{cms?.eyebrow || 'Get Started'}</div>
-            <h2 className={`${h2Class} [font-size:clamp(32px,5.6vw,60px)] max-w-[820px] mx-auto`}>{cms?.heading || "Let's Build Your Next Portable Cabin Together"}</h2>
-            <p className="mt-[18px] mx-auto max-w-[560px] text-brand-off text-[18px]">
+            <h2 className={`${h2Class} [font-size:clamp(32px,5.6vw,60px)] max-w-[clamp(560px,58vw,820px)] mx-auto`}>{cms?.heading || "Let's Build Your Next Portable Cabin Together"}</h2>
+            <p className="mt-[18px] mx-auto max-w-[clamp(380px,42vw,560px)] text-brand-off text-[18px]">
               {cms?.description || "Tell us about your site and we'll help you configure a portable cabin solution built around it — from a single site office to a full labour township."}
             </p>
           </div>

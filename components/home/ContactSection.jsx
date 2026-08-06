@@ -8,8 +8,8 @@ export default function ContactSection({ onSubmit }){
     <section id="contact" className="min-h-screen flex items-center justify-center text-center">
       <div className={`${wrapClass} flex flex-col items-center`}>
         <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-brand-red flex items-center gap-[10px] mb-[18px]"><span className="w-[26px] h-[2px] bg-brand-red"></span>{cms?.eyebrow || "LET'S BUILD YOUR SITE"}</div>
-        <h2 className={`${h2Class} [font-size:clamp(34px,6vw,72px)] max-w-[840px]`}>{cms?.heading || <>Need a portable cabin<br />for your project?</>}</h2>
-        <p className="text-brand-off text-[18px] mt-[18px] max-w-[520px]">{cms?.description || "Tell us your site and scale — we'll come back with a configuration and a quote, fast."}</p>
+        <h2 className={`${h2Class} [font-size:clamp(34px,6vw,72px)] max-w-[clamp(600px,62vw,840px)]`}>{cms?.heading || <>Need a portable cabin<br />for your project?</>}</h2>
+        <p className="text-brand-off text-[18px] mt-[18px] max-w-[clamp(380px,42vw,520px)]">{cms?.description || "Tell us your site and scale — we'll come back with a configuration and a quote, fast."}</p>
         <form className={contactFormClass} onSubmit={onSubmit}>
           <input className={contactFormFieldClass} name="name" type="text" placeholder={forms?.namePlaceholder || 'Full name'} required />
           <input className={contactFormFieldClass} name="phone" type="tel" placeholder={forms?.phonePlaceholder || 'Phone number'} required />

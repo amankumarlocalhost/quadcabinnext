@@ -94,7 +94,7 @@ export default function TestimonialsSection(){
 
           <div className="animate-[t2-copy-in_0.5s_cubic-bezier(.2,.8,.2,1)_both]" key={safeActive}>
             <Stars />
-            <p className="font-barlow-condensed text-[26px] leading-[1.5] text-brand-white max-w-[600px] mb-[26px] max-[900px]:text-[21px] max-[900px]:max-w-full max-[900px]:mb-[22px] max-[560px]:text-[19px]">{t.review}</p>
+            <p className="font-barlow-condensed text-[26px] leading-[1.5] text-brand-white max-w-[clamp(420px,44vw,600px)] mb-[26px] max-[900px]:text-[21px] max-[900px]:max-w-full max-[900px]:mb-[22px] max-[560px]:text-[19px]">{t.review}</p>
             <div className="flex items-center gap-[14px]">
               <img
                 className="hidden max-[900px]:block w-[54px] h-[54px] max-[560px]:w-[48px] max-[560px]:h-[48px] flex-none rounded-full object-cover border-2 border-brand-red [filter:saturate(0.75)_brightness(0.85)] animate-[t2-fade-in_0.5s_ease_both]"

@@ -26,7 +26,7 @@ export default function ContactHero(){
       <div className={`${wrapClass} relative z-1`}>
         <div className="relative z-1 items-center flex-wrap gap-[56px] flex max-[900px]:flex-col max-[900px]:items-stretch">
           <div
-            className="relative rounded-[16px] border border-white/12 text-brand-white [flex:1_1_380px] max-w-[460px] p-11 bg-[linear-gradient(155deg,rgba(28,28,31,0.7),rgba(10,10,11,0.7))] backdrop-blur-[22px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.7),inset_0_1px_0_0_rgba(255,255,255,0.06)] transition-[transform,box-shadow] duration-300 ease-in-out hover:-translate-y-[3px] hover:shadow-[0_50px_110px_-30px_rgba(0,0,0,0.8),0_0_0_1px_rgba(225,27,35,0.22),inset_0_1px_0_0_rgba(255,255,255,0.06)] max-[900px]:max-w-full"
+            className="relative rounded-[16px] border border-white/12 text-brand-white [flex:1_1_380px] max-w-[clamp(380px,34vw,460px)] p-11 bg-[linear-gradient(155deg,rgba(28,28,31,0.7),rgba(10,10,11,0.7))] backdrop-blur-[22px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.7),inset_0_1px_0_0_rgba(255,255,255,0.06)] transition-[transform,box-shadow] duration-300 ease-in-out hover:-translate-y-[3px] hover:shadow-[0_50px_110px_-30px_rgba(0,0,0,0.8),0_0_0_1px_rgba(225,27,35,0.22),inset_0_1px_0_0_rgba(255,255,255,0.06)] max-[900px]:max-w-full"
             data-rise
           >
             {/* single accent — replaces the old double-marked left border + pseudo-bar */}

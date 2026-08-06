@@ -41,11 +41,9 @@ export default function CopyOverlay({ onGoTo, productsData }){
         const visible = rise * (1 - fall);
         el.style.opacity = visible.toFixed(3);
         el.style.visibility = visible > 0.01 ? 'visible' : 'hidden';
-        // `transform` is set imperatively here every frame, so the panel's
-        // vertical centering is authored as a plain inline style (not a
-        // Tailwind translate-y utility) below — a class-based transform
-        // would just get clobbered by this same assignment anyway, but
-        // keeping the base state in inline `style` makes that explicit.
+        // Panel is bottom-anchored (`bottom: clamp(...)` in the className,
+        // not vertically centered), so this fade-in slide is a plain
+        // translateY — no -50% centering offset to preserve.
         el.style.transform = `translateY(${((1-visible)*28).toFixed(1)}px)`;
       }
     };
@@ -57,11 +55,10 @@ export default function CopyOverlay({ onGoTo, productsData }){
     <div className="fixed inset-0 z-3 pointer-events-none max-[900px]:z-41">
       {panels.map((p, i)=>(
         <div
-          className="absolute left-[34px] top-1/2 opacity-0 invisible pointer-events-auto will-change-[opacity,transform] overflow-y-auto overflow-x-hidden rounded-[10px] max-w-[460px] max-h-[86vh] shadow-[0_50px_120px_-30px_rgba(0,0,0,0.55)] bg-[rgba(247,247,245,0.96)] backdrop-blur-[18px] border border-black/8 p-[32px_36px] text-[#111]
-            max-[900px]:left-[12px] max-[900px]:right-[12px] max-[900px]:top-auto max-[900px]:bottom-[12px] max-[900px]:max-w-full max-[900px]:p-[18px_18px_16px] max-[900px]:max-h-[50vh] max-[900px]:rounded-2xl max-[900px]:shadow-[0_-18px_50px_-18px_rgba(0,0,0,0.5)]"
+          className="absolute left-[34px] bottom-[clamp(20px,6vh,64px)] opacity-0 invisible pointer-events-auto will-change-[opacity,transform] overflow-y-auto overflow-x-hidden rounded-[10px] max-w-[460px] max-h-[80vh] shadow-[0_50px_120px_-30px_rgba(0,0,0,0.55)] bg-[rgba(247,247,245,0.96)] backdrop-blur-[18px] border border-black/8 p-[32px_36px] text-[#111]
+            max-[900px]:left-[12px] max-[900px]:right-[12px] max-[900px]:bottom-[12px] max-[900px]:max-w-full max-[900px]:p-[18px_18px_16px] max-[900px]:max-h-[50vh] max-[900px]:rounded-2xl max-[900px]:shadow-[0_-18px_50px_-18px_rgba(0,0,0,0.5)]"
           key={i}
           ref={el=>refs.current[i]=el}
-          style={{ transform: 'translateY(-50%)' }}
         >
           {/* ghost index numeral, bleeding off the top-right corner */}
           <span aria-hidden="true" className="absolute -top-[0.22em] -right-[0.06em] font-anton leading-none text-transparent [-webkit-text-stroke:1.5px_rgba(0,0,0,0.07)] text-[120px] pointer-events-none select-none max-[900px]:text-[80px]">

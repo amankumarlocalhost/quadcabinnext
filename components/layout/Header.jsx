@@ -23,16 +23,15 @@ export default function Header({ onNavHome }){
 
   const closeMenu = () => setMenuOpen(false);
 
-  const navLinkClass = 'group relative py-[4px] font-barlow-condensed font-semibold text-[14.5px] tracking-[0.09em] uppercase text-brand-off transition-colors duration-[250ms] ease-in-out cursor-pointer hover:text-brand-white min-[901px]:max-[1366px]:text-[12.5px] min-[901px]:max-[1180px]:text-[11.5px] max-[900px]:text-[22px]';
+  const navLinkClass = 'group relative py-[4px] font-barlow-condensed font-semibold text-[clamp(11.5px,1vw,14.5px)] tracking-[0.09em] uppercase text-brand-off transition-colors duration-[250ms] ease-in-out cursor-pointer hover:text-brand-white max-[900px]:text-[22px]';
   const underlineClass = 'absolute left-0 bottom-0 h-[2px] w-0 bg-brand-red transition-[width] duration-[250ms] ease-in-out group-hover:w-full';
 
   return (
     <header
       id="siteHeader"
       className={
-        'fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-[78px] px-[34px] '
+        'fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-[78px] px-[clamp(14px,2.2vw,34px)] '
         + '[background:linear-gradient(180deg,rgba(10,10,11,0.92),rgba(10,10,11,0.55))] '
-        + 'min-[901px]:max-[1366px]:px-[20px] max-[480px]:px-[18px] max-[390px]:px-[14px] '
         + (menuOpen ? 'max-[900px]:bg-brand-black max-[900px]:[background:none]' : '')
       }
     >
@@ -46,7 +45,7 @@ export default function Header({ onNavHome }){
 
       <nav
         className={
-          'flex gap-[30px] min-[901px]:max-[1366px]:gap-[16px] min-[901px]:max-[1180px]:gap-[12px] '
+          'flex gap-[clamp(10px,1.6vw,30px)] '
           + (menuOpen
             ? 'max-[900px]:flex max-[900px]:fixed max-[900px]:inset-0 max-[900px]:top-0 max-[900px]:bg-brand-black max-[900px]:flex-col max-[900px]:justify-center max-[900px]:items-center max-[900px]:gap-[30px] max-[900px]:z-55 max-[900px]:h-dvh max-[900px]:animate-[mobile-menu-in_0.25s_ease_both]'
             : 'max-[900px]:hidden')
@@ -69,15 +68,14 @@ export default function Header({ onNavHome }){
 
       <Link
         className={
-          'relative inline-flex items-center gap-[7px] font-barlow-condensed font-bold text-[12.5px] tracking-[0.06em] uppercase rounded-[6px] '
+          'relative inline-flex items-center gap-[7px] font-barlow-condensed font-bold text-[clamp(11.5px,0.85vw,12.5px)] tracking-[0.06em] uppercase rounded-[6px] '
           + 'bg-gradient-to-b from-[#ee2a32] to-brand-red text-brand-white border-2 border-brand-red '
           + 'shadow-[0_8px_20px_-10px_rgba(225,27,35,0.9),inset_0_1px_0_0_rgba(255,255,255,0.18)] '
-          + 'px-[16px] py-[8px] cursor-pointer transition-all duration-[220ms] ease-out '
+          + 'px-[clamp(13px,1.1vw,16px)] py-[clamp(7px,0.6vw,8px)] cursor-pointer transition-all duration-[220ms] ease-out '
           + 'hover:from-brand-red hover:to-brand-red-dark hover:border-brand-red-dark hover:-translate-y-[2px] '
           + 'hover:shadow-[0_12px_26px_-8px_rgba(225,27,35,1),inset_0_1px_0_0_rgba(255,255,255,0.18)] '
           + 'active:scale-[0.97] '
           + "after:content-['→'] after:inline-block after:transition-transform after:duration-300 after:ease-out hover:after:translate-x-[3px] "
-          + 'min-[901px]:max-[1366px]:px-[13px] min-[901px]:max-[1366px]:py-[7px] min-[901px]:max-[1366px]:text-[11.5px] '
           + (menuOpen
             ? 'max-[900px]:inline-flex max-[900px]:fixed max-[900px]:left-1/2 max-[900px]:-translate-x-1/2 max-[900px]:z-56 max-[900px]:bottom-[48px] max-[900px]:text-[16px] max-[900px]:p-[14px_28px] max-[900px]:animate-[mobile-menu-in_0.25s_ease_both]'
             : 'max-[900px]:hidden')

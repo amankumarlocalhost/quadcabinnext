@@ -15,13 +15,13 @@ export default function Hero({ heroRef, onGoTo }){
         <div className={`${eyebrowClass} opacity-0`} data-rise><span className={eyebrowBarClass}></span>{cms?.eyebrow || 'FACTORY-BUILT · SITE-READY'}</div>
         <h1
           data-rise
-          className={`${h1Class} opacity-0 [font-size:clamp(34px,7.8vw,74px)] max-w-[900px] max-[480px]:[font-size:clamp(34px,10vw,48px)] max-[320px]:[font-size:clamp(28px,11vw,40px)]`}
+          className={`${h1Class} opacity-0 [font-size:clamp(34px,7.8vw,74px)] max-w-[clamp(620px,66vw,900px)] max-[480px]:[font-size:clamp(34px,10vw,48px)] max-[320px]:[font-size:clamp(28px,11vw,40px)]`}
         >
           {cms?.heading ? <>{cms.heading.split(cms.highlightedText || 'Stronger')[0]}<br /><span className="text-brand-red">{cms.highlightedText || 'Stronger'}</span>{cms.heading.split(cms.highlightedText || 'Stronger')[1]}</> : <>Smart Spaces.<br /><span className="text-brand-red">Stronger</span> Projects.</>}
         </h1>
         <p
           data-rise
-          className="opacity-0 text-[18px] text-brand-off max-w-[460px] mt-[22px] [text-shadow:0_2px_18px_rgba(0,0,0,0.8)] max-[900px]:text-[15.5px] max-[480px]:text-[15px] max-[480px]:max-w-full"
+          className="opacity-0 text-[18px] text-brand-off max-w-[clamp(320px,38vw,460px)] mt-[22px] [text-shadow:0_2px_18px_rgba(0,0,0,0.8)] max-[900px]:text-[15.5px] max-[480px]:text-[15px] max-[480px]:max-w-full"
         >
           {cms?.description || 'Quad Cabins engineers portable and modular cabins for construction, industrial and infrastructure sites across India — built in the factory, delivered ready to work.'}
         </p>

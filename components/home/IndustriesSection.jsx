@@ -10,7 +10,7 @@ export default function IndustriesSection(){
       <div className={`${wrapClass} flex-col items-start`}>
         <div className={eyebrowClass}><span className={eyebrowBarClass}></span>{cms?.eyebrow || 'WHERE WE WORK'}</div>
         <h2 className={`${h2Class} [font-size:clamp(32px,5vw,58px)] mb-[8px]`}>{cms?.heading || 'Industries Served'}</h2>
-        <p className="text-brand-off max-w-[520px] mb-[44px]">{cms?.description || "Every cabin in our range is built to survive the site it's dropped onto."}</p>
+        <p className="text-brand-off max-w-[clamp(380px,42vw,520px)] mb-[44px]">{cms?.description || "Every cabin in our range is built to survive the site it's dropped onto."}</p>
         <div className="grid w-full bg-transparent border-none [grid-template-columns:repeat(3,minmax(0,1fr))] gap-[10px] max-[900px]:grid-cols-2 max-[480px]:grid-cols-1">
           {items.map(({ idx, name, img, image }) => (
             <div
