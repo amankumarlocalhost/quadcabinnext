@@ -7,6 +7,13 @@ const nextConfig = {
   images: {
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
   },
+  // Lets Next's compiler tree-shake these per-submodule instead of pulling
+  // each package's full barrel export into the client bundle — same output,
+  // smaller chunks. These are exactly the heavy libs behind the 3D journey
+  // experience (dynamically imported client-only, see JourneyStage.jsx).
+  experimental: {
+    optimizePackageImports: ['three', '@react-three/fiber', '@react-three/drei', '@react-three/postprocessing', 'gsap'],
+  },
   // Proxies browser requests for the CMS/quotes API to the backend so the
   // browser only ever hits this app's own origin — see lib/apiBase.js. The
   // backend doesn't send Access-Control-Allow-Origin, so calling it directly
