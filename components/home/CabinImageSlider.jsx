@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useIsMobile } from '@/hooks/useIsMobile.js';
@@ -96,12 +97,14 @@ export default function CabinImageSlider({ images, sectionId, fallbackAlt }){
           ref={swipeRef}
         >
           {list.map((img, index) => (
-            <div className="flex-none w-full h-full [scroll-snap-align:center] [scroll-snap-stop:always]" key={img.publicId || img.url || img.src || index}>
-              <img
-                className="w-full h-full object-cover block rounded-[2px]"
+            <div className="relative flex-none w-full h-full [scroll-snap-align:center] [scroll-snap-stop:always]" key={img.publicId || img.url || img.src || index}>
+              <Image
+                fill
+                sizes="100vw"
+                className="object-cover rounded-[2px]"
                 src={img.url || img.src}
                 alt={img.alt || fallbackAlt || 'Quad Cabins modular cabin'}
-                loading={index === 0 ? 'eager' : 'lazy'}
+                priority={index === 0}
               />
             </div>
           ))}
@@ -133,14 +136,16 @@ export default function CabinImageSlider({ images, sectionId, fallbackAlt }){
   return (
     <div className={`${cabinViewerClass} ${cabinVisualClass}`} ref={viewerRef}>
       {list.map((img, index) => (
-        <img
+        <Image
           key={img.publicId || img.url || img.src || index}
+          fill
+          sizes="(max-width: 900px) 100vw, 46vw"
           className={cabinFrameClass}
           ref={(el) => { if (el) frameRefs.current[index] = el; }}
           style={{ opacity: index === 0 ? 1 : 0 }}
           src={img.url || img.src}
           alt={img.alt || fallbackAlt || 'Quad Cabins modular cabin'}
-          loading={index === 0 ? 'eager' : 'lazy'}
+          priority={index === 0}
         />
       ))}
     </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useCountUp } from '@/hooks/useCountUp.js';
 import {
@@ -19,7 +20,7 @@ export default function IndustryRow({ idx, name, img, imageAlt, tagline, desc, s
     <section className={`py-[78px] ${even ? 'bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_60%)]' : ''}`}>
       <div className={`${wrapClass} ${splitWrapClass} min-[901px]:flex-nowrap gap-[60px]! max-[900px]:flex-col max-[900px]:items-stretch ${reverse ? 'min-[901px]:flex-row-reverse' : ''}`}>
         <div className={industryMediaClass} data-reveal>
-          <img className={industryMediaImgClass} src={img} alt={imageAlt || name} loading="lazy" />
+          <Image fill sizes="(max-width: 900px) 100vw, 50vw" className={industryMediaImgClass} src={img} alt={imageAlt || name} />
           {/* depth wash — replaces the old ::after pseudo-element */}
           <div aria-hidden="true" className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(10,10,11,0.05)_0%,rgba(10,10,11,0.6)_100%)]" />
           <span className={idxBadgeClass}>{idx} / 06</span>

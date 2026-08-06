@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useCmsSection } from '@/lib/cms/CmsContext.js';
 import { wrapClass, eyebrowClass, eyebrowBarClass, h2Class } from '@/lib/ui/classNames.js';
 
@@ -65,7 +66,7 @@ export default function TestimonialsSection(){
         <div className="flex-none [flex-basis:340px] max-[900px]:hidden">
           <div className="relative w-full">
             <div className="relative w-full overflow-hidden border border-brand-line aspect-[4/5] shadow-[0_24px_60px_rgba(0,0,0,0.5)]">
-              <img key={t.photo?.url || t.photo} src={t.photo?.url || t.photo} alt={t.photo?.alt || t.name} className="absolute inset-0 w-full h-full object-cover [filter:saturate(0.75)_brightness(0.8)_contrast(1.05)] animate-[t2-fade-in_0.5s_ease_both]" />
+              <Image key={t.photo?.url || t.photo} fill sizes="340px" src={t.photo?.url || t.photo} alt={t.photo?.alt || t.name} className="object-cover [filter:saturate(0.75)_brightness(0.8)_contrast(1.05)] animate-[t2-fade-in_0.5s_ease_both]" />
               {/* depth wash — replaces the old ::after pseudo-element */}
               <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,11,0.05)_0%,rgba(10,10,11,0.75)_100%)]" />
             </div>

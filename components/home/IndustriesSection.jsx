@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { industries } from '@/lib/data/industries.js';
 import { useCmsSection } from '@/lib/cms/CmsContext.js';
 import { wrapClass, sectionClass, eyebrowClass, eyebrowBarClass, h2Class } from '@/lib/ui/classNames.js';
@@ -18,11 +19,12 @@ export default function IndustriesSection(){
               key={idx}
               data-reveal-tile
             >
-              <img
-                className="absolute inset-0 w-full h-full object-cover [filter:saturate(0.55)_brightness(0.55)_contrast(1.05)] scale-[1.06] transition-[transform,filter] duration-[600ms] [transition-timing-function:cubic-bezier(.2,.8,.2,1)] group-hover:scale-[1.16] group-hover:[filter:saturate(0.8)_brightness(0.65)_contrast(1.08)]"
+              <Image
+                fill
+                sizes="(max-width: 480px) 100vw, (max-width: 900px) 50vw, 33vw"
+                className="object-cover [filter:saturate(0.55)_brightness(0.55)_contrast(1.05)] scale-[1.06] transition-[transform,filter] duration-[600ms] [transition-timing-function:cubic-bezier(.2,.8,.2,1)] group-hover:scale-[1.16] group-hover:[filter:saturate(0.8)_brightness(0.65)_contrast(1.08)]"
                 src={image?.url || img}
                 alt={image?.alt || name}
-                loading="lazy"
               />
               <div
                 aria-hidden="true"
