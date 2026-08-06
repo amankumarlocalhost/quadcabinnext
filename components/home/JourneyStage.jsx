@@ -2,7 +2,6 @@
 
 import { memo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import { useCmsSection } from '@/lib/cms/CmsContext.js';
 
 // three.js + fiber + drei + postprocessing are a heavy parse/exec cost —
@@ -30,16 +29,9 @@ function JourneyStage(){
       <div
         data-hero-bg
         aria-hidden="true"
-        className="fixed inset-0 z-0 pointer-events-none opacity-0 will-change-[opacity] bg-[#050505]"
+        className="fixed inset-0 z-0 pointer-events-none opacity-0 will-change-[opacity] bg-[url('/images/site-bg.jpg')] bg-[position:center_38%] bg-cover bg-no-repeat bg-[#050505] [filter:saturate(0.72)_brightness(0.78)_contrast(1.04)]"
+        style={hero?.backgroundImage?.url ? { backgroundImage:`url('${hero.backgroundImage.url}')` } : undefined}
       >
-        <Image
-          src={hero?.backgroundImage?.url || '/images/site-bg.jpg'}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover [object-position:center_38%] [filter:saturate(0.72)_brightness(0.78)_contrast(1.04)]"
-        />
         {/* layered depth wash, replaces the old ::after pseudo-element */}
         <div
           aria-hidden="true"
