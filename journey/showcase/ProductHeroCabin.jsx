@@ -34,59 +34,10 @@ const INERTIA_DAMPING = 2.6;
 
 const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// branded ring under the cabin — transparent canvas, alpha:true on the
-// Canvas — so the page's own dark background shows through instead of an
-// opaque floor plane (avoids stray specular reflections from the direct
-// rim light blowing out on a shiny material).
-function podiumTexture(){
-  const c = document.createElement('canvas'); c.width = c.height = 1024;
-  const ctx = c.getContext('2d');
-  const cx = 512, cy = 512;
-  const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, 512);
-  g.addColorStop(0, 'rgba(28,28,31,0.95)');
-  g.addColorStop(0.55, 'rgba(18,18,20,0.7)');
-  g.addColorStop(0.85, 'rgba(10,10,11,0.25)');
-  g.addColorStop(1, 'rgba(10,10,11,0)');
-  ctx.fillStyle = g; ctx.fillRect(0,0,1024,1024);
-
-  ctx.strokeStyle = 'rgba(225,27,35,0.55)';
-  ctx.lineWidth = 3;
-  ctx.beginPath(); ctx.arc(cx, cy, 430, 0, Math.PI*2); ctx.stroke();
-  ctx.strokeStyle = 'rgba(225,27,35,0.18)';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.arc(cx, cy, 470, 0, Math.PI*2); ctx.stroke();
-
-  ctx.strokeStyle = 'rgba(255,255,255,0.04)';
-  for(let r = 120; r < 420; r += 90){
-    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
-  }
-
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
-
-function Podium(){
-  const tex = useRef(); if(!tex.current) tex.current = podiumTexture();
-  return (
-    <mesh rotation={[-Math.PI/2,0,0]} position={[0,0.006,0]}>
-      <circleGeometry args={[9, 64]} />
-      <meshBasicMaterial map={tex.current} transparent opacity={0.9} depthWrite={false} toneMapped={false} />
-    </mesh>
-  );
-}
-
+// Cabin floats on just a soft contact shadow — no visible floor plane —
+// matching the Industries hero cabin's Ground() treatment.
 function Ground(){
-  return (
-    <>
-      <mesh rotation={[-Math.PI/2,0,0]} position={[0,0.005,0]} receiveShadow>
-        <planeGeometry args={[40,40]} />
-        <shadowMaterial transparent opacity={0.4} />
-      </mesh>
-      <Podium />
-      <ContactShadows position={[0,0.02,0]} scale={14} far={4} blur={2.2} opacity={0.5} frames={1} />
-    </>
-  );
+  return <ContactShadows position={[0,0.02,0]} scale={14} far={4} blur={2.2} opacity={0.5} frames={1} />;
 }
 
 function SunRig(){
