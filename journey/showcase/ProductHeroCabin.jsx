@@ -7,6 +7,7 @@ import { Environment, Lightformer, ContactShadows, SoftShadows } from '@react-th
 import { EffectComposer, Bloom, N8AO, Vignette, HueSaturation, BrightnessContrast } from '@react-three/postprocessing';
 import { gsap } from 'gsap';
 import ExecutiveCabin from './ExecutiveCabin.jsx';
+import { useSceneReadyStore } from '@/lib/store/sceneReadyStore.js';
 
 // Self-contained static turntable for the /products hero — no scroll link,
 // just a fixed camera and a drag-to-rotate cabin. ExecutiveCabin is a
@@ -165,6 +166,7 @@ export default function ProductHeroCabin(){
   // events on the wrapper div) but is read every frame inside the Canvas —
   // a ref avoids re-rendering either side on every mouse-move.
   const drag = useRef({ dragging:false, rotated:false, lastX:0, lastT:0, vel:0, rotY:BASE_ROT });
+  const markSceneReady = useSceneReadyStore((s) => s.markSceneReady);
 
   useEffect(()=>{
     const cabin = { loaded: 0 };
@@ -213,6 +215,7 @@ export default function ProductHeroCabin(){
       dpr={[1, 1.75]}
       gl={{ antialias:true, powerPreference:'high-performance', alpha:true, toneMapping:THREE.ACESFilmicToneMapping }}
       camera={{ fov:FOV, near:0.1, far:80, position: CAM_POS }}
+      onCreated={markSceneReady}
     >
       <fogExp2 attach="fog" args={['#0a0a0b', 0.009]} />
       <SunRig />

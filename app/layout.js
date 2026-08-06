@@ -1,6 +1,7 @@
 import { Anton, Antonio, Barlow, Barlow_Condensed, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import WhatsAppButton from '@/components/layout/WhatsAppButton';
+import PageLoader from '@/components/layout/PageLoader.jsx';
 import { SITE_URL } from '@/lib/siteUrl.js';
 
 const anton = Anton({ subsets: ['latin'], weight: '400', variable: '--font-anton-nf', display: 'swap' });
@@ -82,6 +83,7 @@ export default function RootLayout({ children }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }} />
+        <PageLoader />
         {children}
         <WhatsAppButton />
       </body>

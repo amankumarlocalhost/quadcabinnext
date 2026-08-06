@@ -8,6 +8,7 @@ import { EffectComposer, Bloom, N8AO, Vignette, BrightnessContrast } from '@reac
 import { gsap } from 'gsap';
 import ReceptionCabin from '../showcase/ReceptionCabin.jsx';
 import { useIsMobile } from '@/hooks/useIsMobile.js';
+import { useSceneReadyStore } from '@/lib/store/sceneReadyStore.js';
 
 const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -94,6 +95,7 @@ export default function ContactCabinScene(){
   const loaded = useRef(0);
   const mobile = useIsMobile();
   const [inView, setInView] = useState(true);
+  const markSceneReady = useSceneReadyStore((s) => s.markSceneReady);
 
   useEffect(()=>{
     const tween = gsap.to(loaded, { current:1, duration:1.8, ease:'power2.inOut', delay:0.15 });
@@ -116,6 +118,7 @@ export default function ContactCabinScene(){
         frameloop={inView ? 'always' : 'never'}
         gl={{ antialias:!mobile, powerPreference:'high-performance', alpha:true, toneMapping:THREE.ACESFilmicToneMapping }}
         camera={{ fov:38, near:0.1, far:60, position:[6.3, 2.3, 7.4] }}
+        onCreated={markSceneReady}
       >
         <fogExp2 attach="fog" args={['#0a0a0b', 0.02]} />
         <SunRig loaded={loaded} mobile={mobile} />
