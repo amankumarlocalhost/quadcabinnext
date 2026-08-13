@@ -12,7 +12,6 @@ import CameraRig from './CameraRig.jsx';
 import Effects from './Effects.jsx';
 import { Dust, LightRays } from './Atmosphere.jsx';
 import { useIsMobile } from '@/hooks/useIsMobile.js';
-import { useSceneReadyStore } from '@/lib/store/sceneReadyStore.js';
 
 /* key light with load-in animation + subtle day→dusk drift over the journey */
 function SunRig({ mobile }){
@@ -71,7 +70,6 @@ function Ground({ mobile }){
 
 export default function Experience(){
   const mobile = useIsMobile();
-  const markSceneReady = useSceneReadyStore((s) => s.markSceneReady);
 
   // Hero text ([data-rise]) rides the exact same `journey.loaded` value that
   // lights up the cabin below, instead of a separate timeline — so text and
@@ -104,7 +102,6 @@ export default function Experience(){
         dpr={mobile ? 1 : [1, 2]}
         gl={{ antialias:!mobile, powerPreference:'high-performance', alpha:true, toneMapping:THREE.ACESFilmicToneMapping }}
         camera={{ fov:45, near:0.1, far:120, position:[0.3, 2.65, 15.2] }}
-        onCreated={markSceneReady}
       >
         {/* no opaque background — the hero backdrop photo shows through the canvas */}
         <fogExp2 attach="fog" args={['#3a352e', 0.014]} />

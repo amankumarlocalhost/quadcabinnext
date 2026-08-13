@@ -7,7 +7,6 @@ import { Environment, Lightformer, ContactShadows } from '@react-three/drei';
 import { EffectComposer, Bloom, N8AO, HueSaturation, BrightnessContrast } from '@react-three/postprocessing';
 import { gsap } from 'gsap';
 import SiteCabinPro from './SiteCabinPro.jsx';
-import { useSceneReadyStore } from '@/lib/store/sceneReadyStore.js';
 
 // A free-floating cabin standing directly on the hero photo — no card, no
 // backdrop plane, no vignette framing it into a box. Just the model plus a
@@ -125,7 +124,6 @@ export default function IndustriesHeroCabin(){
   // events on the wrapper div) but is read every frame inside the Canvas —
   // a ref avoids re-rendering either side on every mouse-move.
   const drag = useRef({ dragging:false, rotated:false, lastX:0, lastT:0, vel:0, rotY:BASE_ROT });
-  const markSceneReady = useSceneReadyStore((s) => s.markSceneReady);
 
   useEffect(()=>{
     const cabin = { loaded: 0 };
@@ -178,7 +176,6 @@ export default function IndustriesHeroCabin(){
       // buffer of precision and is the single biggest cause of z-fighting
       // flicker on thin, closely-stacked panels like these.
       camera={{ fov:FOV, near:1, far:25, position: CAM_POS }}
-      onCreated={markSceneReady}
     >
       <fogExp2 attach="fog" args={['#0a0a0b', 0.011]} />
       <SunRig />
