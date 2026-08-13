@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Environment, Lightformer, ContactShadows, SoftShadows } from '@react-three/drei';
+import { Environment, Lightformer, ContactShadows } from '@react-three/drei';
 import { gsap } from 'gsap';
 import { journey, mapRange } from './scrollState.js';
 import CabinExterior from './CabinExterior.jsx';
@@ -114,7 +114,6 @@ export default function Experience(){
         <fogExp2 attach="fog" args={['#3a352e', 0.014]} />
 
         <SunRig mobile={mobile} />
-        {!mobile && <SoftShadows size={18} samples={9} focus={0.6} />}
         {/* hazy overcast site sky — cool sky bounce, warm dusty bounce off the ground */}
         <hemisphereLight args={[0x9aa4b5, 0x3a3226, 0.55]} />
         {/* red brand rim from behind-left, kept subtle so it doesn't tint like a studio gel */}
