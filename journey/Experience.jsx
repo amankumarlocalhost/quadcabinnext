@@ -107,13 +107,13 @@ export default function Experience(){
         <fogExp2 attach="fog" args={['#3a352e', 0.014]} />
 
         <SunRig mobile={mobile} />
-        {!mobile && <SoftShadows size={18} samples={12} focus={0.6} />}
+        {!mobile && <SoftShadows size={18} samples={9} focus={0.6} />}
         {/* hazy overcast site sky — cool sky bounce, warm dusty bounce off the ground */}
         <hemisphereLight args={[0x9aa4b5, 0x3a3226, 0.55]} />
         {/* red brand rim from behind-left, kept subtle so it doesn't tint like a studio gel */}
         <directionalLight position={[-8, 4, -6]} intensity={0.22} color={0xe11b23} />
 
-        <Environment resolution={mobile ? 96 : 384} frames={1}>
+        <Environment resolution={mobile ? 96 : 256} frames={1}>
           <Lightformer intensity={1.4} position={[0, 6, 0]} rotation={[Math.PI/2,0,0]} scale={[18,18,1]} color="#c7cdd8" />
           <Lightformer intensity={1.15} position={[-7, 2.5, 2]} rotation={[0,Math.PI/2,0]} scale={[8,3,1]} color="#dfe6f2" />
           <Lightformer intensity={0.95} position={[7, 2, -2]} rotation={[0,-Math.PI/2,0]} scale={[8,3,1]} color="#f0d9b8" />
