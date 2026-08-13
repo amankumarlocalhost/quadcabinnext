@@ -139,22 +139,27 @@ export const wallBumpTex = makeTex(512, 4, (ctx,w,h)=>{
 }, THREE.NoColorSpace);
 /* height profile (ribs + rivets) rendered at real aspect so the derived
    normal map carries correct slope in both directions, not just across ribs */
+// 512px (not 1024) — this feeds heightToNormalMap's per-pixel CPU loop, and
+// the derived normal map already renders at a lower resolution than the
+// color map (matches wallRoughTex's 512 width too), so halving it here cuts
+// that loop's iteration count 4x with no visible change once tiled/repeated
+// across the wall, while keeping the wall load off the main thread for less time.
 const wallHeightCanvas = document.createElement('canvas');
-wallHeightCanvas.width = 1024; wallHeightCanvas.height = 1024;
+wallHeightCanvas.width = 512; wallHeightCanvas.height = 512;
 (()=>{
   const ctx = wallHeightCanvas.getContext('2d');
-  const rw = 1024/RIBS;
-  for(let x=0;x<1024;x++){
+  const rw = 512/RIBS;
+  for(let x=0;x<512;x++){
     const v = Math.round(128 + 108*Math.sin((x/rw)*Math.PI*2));
     ctx.fillStyle = `rgb(${v},${v},${v})`;
-    ctx.fillRect(x,0,1,1024);
+    ctx.fillRect(x,0,1,512);
   }
   // fastener dimples read as small height pits
   ctx.fillStyle = 'rgb(70,70,70)';
   for(let i=0;i<RIBS;i++){
     const x = i*rw + rw/2;
-    ctx.beginPath(); ctx.arc(x,52,8,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x,1024-52,8,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x,26,4,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x,512-26,4,0,Math.PI*2); ctx.fill();
   }
 })();
 export const wallNormalTex = heightToNormalMap(wallHeightCanvas, 2.2);
@@ -243,16 +248,19 @@ export const roofTex = makeTex(1024, 512, (ctx,w,h)=>{
   }
   speckle(ctx,w,h,500,0.06);
 });
+// 512x256 (not 1024x512) — same reasoning as wallHeightCanvas above: this
+// only feeds the CPU-bound heightToNormalMap loop, and roofRoughTex is
+// already 512px, so this brings the seam normal detail in line with it.
 const roofHeightCanvas = document.createElement('canvas');
-roofHeightCanvas.width = 1024; roofHeightCanvas.height = 512;
+roofHeightCanvas.width = 512; roofHeightCanvas.height = 256;
 (()=>{
   const ctx = roofHeightCanvas.getContext('2d');
-  ctx.fillStyle = 'rgb(128,128,128)'; ctx.fillRect(0,0,1024,512);
-  const sw = 1024/ROOF_SEAMS;
+  ctx.fillStyle = 'rgb(128,128,128)'; ctx.fillRect(0,0,512,256);
+  const sw = 512/ROOF_SEAMS;
   for(let i=0;i<ROOF_SEAMS;i++){
     const x = i*sw;
-    ctx.fillStyle = 'rgb(210,210,210)'; ctx.fillRect(x,0,6,512);
-    ctx.fillStyle = 'rgb(70,70,70)'; ctx.fillRect(x+6,0,4,512);
+    ctx.fillStyle = 'rgb(210,210,210)'; ctx.fillRect(x,0,3,256);
+    ctx.fillStyle = 'rgb(70,70,70)'; ctx.fillRect(x+3,0,2,256);
   }
 })();
 export const roofNormalTex = heightToNormalMap(roofHeightCanvas, 1.6);
