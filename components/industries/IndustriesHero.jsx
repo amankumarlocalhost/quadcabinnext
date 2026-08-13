@@ -9,7 +9,6 @@ import {
   pageHeroFlexClass, wrapClass, eyebrowClass, eyebrowBarClass, btnPrimaryClass, btnGhostClass, scrollCueClass, scrollCueLineClass,
   trustStripClass, trustItemClass, trustNumClass, trustLabelClass,
   industriesHighlightsClass, industriesHighlightItemClass,
-  industriesHeroVisualClass, industriesHeroFrameClass,
 } from '@/lib/ui/classNames.js';
 
 const trust = [
@@ -64,13 +63,6 @@ export default function IndustriesHero({ data }){
             <li className={industriesHighlightItemClass}>Engineered for terrain, load and climate on-site</li>
             <li className={industriesHighlightItemClass}>Same cabin platform, sector-specific fit-out</li>
           </ul>
-        </div>
-
-        <div className={industriesHeroVisualClass} data-rise>
-          <div aria-hidden="true" className="absolute -z-1 pointer-events-none [inset:-16%] bg-[radial-gradient(58%_58%_at_50%_55%,rgba(225,27,35,0.14),transparent_68%)] blur-[6px]" />
-          <div className={industriesHeroFrameClass}>
-            <img src="/images/industries-hero-cabin.png" alt="Quad Cabins site office cabin" className="w-full h-full object-contain" />
-          </div>
         </div>
       </div>
       <div className={scrollCueClass}><span>Scroll</span><span className={scrollCueLineClass}></span></div>

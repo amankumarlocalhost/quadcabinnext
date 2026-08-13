@@ -82,9 +82,9 @@ export default function ProductsPageView({ initialData = null }){
             </h1>
             <p className="text-[17px] text-brand-off max-w-[clamp(320px,38vw,460px)] mt-[18px]">{intro?.description || 'Explore the full Quad Cabins range — Site Office, Labour Accommodation, Conference and Storage.'}</p>
             <div className="flex mt-[26px] border-t border-white/14 max-w-[clamp(400px,34vw,460px)] max-[900px]:hidden">
-              <div className="flex-1 border-l border-white/14 pt-[14px] px-[14px] first:border-l-0 first:pl-0"><strong className="block font-anton text-[24px] text-brand-white leading-none">HD</strong><span className="block mt-[6px] font-mono text-[9.5px] tracking-[0.08em] uppercase text-brand-steel leading-[1.4]">Studio renders</span></div>
-              <div className="flex-1 border-l border-white/14 pt-[14px] px-[14px]"><strong className="block font-anton text-[24px] text-brand-white leading-none">4</strong><span className="block mt-[6px] font-mono text-[9.5px] tracking-[0.08em] uppercase text-brand-steel leading-[1.4]">Cabin ranges</span></div>
-              <div className="flex-1 border-l border-white/14 pt-[14px] px-[14px]"><strong className="block font-anton text-[24px] text-brand-white leading-none">PBR</strong><span className="block mt-[6px] font-mono text-[9.5px] tracking-[0.08em] uppercase text-brand-steel leading-[1.4]">Real-material render</span></div>
+              <div className="flex-1 border-l border-white/14 pt-[14px] px-[14px] first:border-l-0 first:pl-0"><strong className="block font-anton text-[24px] text-brand-white leading-none">4</strong><span className="block mt-[6px] font-mono text-[9.5px] tracking-[0.08em] uppercase text-brand-steel leading-[1.4]">Cabin ranges</span></div>
+              <div className="flex-1 border-l border-white/14 pt-[14px] px-[14px]"><strong className="block font-anton text-[24px] text-brand-white leading-none">100%</strong><span className="block mt-[6px] font-mono text-[9.5px] tracking-[0.08em] uppercase text-brand-steel leading-[1.4]">Factory built</span></div>
+              <div className="flex-1 border-l border-white/14 pt-[14px] px-[14px]"><strong className="block font-anton text-[24px] text-brand-white leading-none">Fast</strong><span className="block mt-[6px] font-mono text-[9.5px] tracking-[0.08em] uppercase text-brand-steel leading-[1.4]">Site delivery</span></div>
             </div>
             <div
               className={`${scrollCueClass} static items-start transform-none mt-[34px] max-[900px]:mt-[18px]`}
@@ -93,12 +93,6 @@ export default function ProductsPageView({ initialData = null }){
             >
               <span>{intro?.cta?.text || intro?.scrollLabel || 'Scroll to explore'}</span>
               <span className={scrollCueLineClass}></span>
-            </div>
-          </div>
-          <div className="relative flex-none pointer-events-auto w-[clamp(420px,42vw,600px)] max-[900px]:pointer-events-auto max-[900px]:self-center max-[900px]:w-[min(92vw,430px)] [@media(max-width:900px)_and_(max-height:640px)]:hidden">
-            <div aria-hidden="true" className="absolute -z-1 pointer-events-none [inset:-14%] bg-[radial-gradient(58%_58%_at_50%_52%,rgba(225,27,35,0.16),transparent_68%)] blur-[6px]" />
-            <div className="relative aspect-[5/4] max-[900px]:max-h-[38vh] [filter:saturate(0.92)_contrast(1.06)_brightness(0.96)]">
-              <img src="/images/products-hero-cabin.png" alt="Quad Cabins flagship cabin" className="w-full h-full object-contain" />
             </div>
           </div>
         </div>
