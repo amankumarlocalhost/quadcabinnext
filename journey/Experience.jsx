@@ -100,13 +100,14 @@ export default function Experience(){
       <Canvas
         shadows={mobile ? false : 'soft'}
         dpr={mobile ? 1 : [1, 2]}
-        // antialias is off even on desktop: the postprocessing EffectComposer
-        // (Effects.jsx, desktop-only) does its own framebuffer resolve, and
-        // the renderer also doing MSAA on the same default framebuffer is
-        // what throws "glBlitFramebuffer: Read and write depth stencil
-        // attachments cannot be the same image" on real GPUs (repeats every
-        // frame). Mobile never hit this — antialias was already off there
-        // and Effects doesn't mount on mobile either.
+        // antialias is off on desktop because the postprocessing EffectComposer
+        // (Effects.jsx, desktop-only) already resolves its own framebuffer, so
+        // renderer-level MSAA would just be redundant work. Note: the recurring
+        // "glBlitFramebuffer: Read and write depth stencil attachments cannot be
+        // the same image" error was NOT caused by this — it came from `three`
+        // being pinned below the version the installed `postprocessing` engine
+        // (bundled inside @react-three/postprocessing) requires for its
+        // depth-texture render-target handling. See package.json's `three` range.
         gl={{ antialias:false, powerPreference:'high-performance', alpha:true, toneMapping:THREE.ACESFilmicToneMapping }}
         camera={{ fov:45, near:0.1, far:120, position:[0.3, 2.65, 15.2] }}
       >
