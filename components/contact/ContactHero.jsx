@@ -1,11 +1,7 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useCmsSection } from '@/lib/cms/CmsContext.js';
-import CabinLoading from '@/components/layout/CabinLoading.jsx';
 import { wrapClass } from '@/lib/ui/classNames.js';
-
-const ContactCabinScene = dynamic(() => import('@/journey/contact/ContactCabinScene.jsx'), { ssr: false, loading: CabinLoading });
 
 export default function ContactHero(){
   const cms = useCmsSection('hero');
@@ -51,8 +47,8 @@ export default function ContactHero(){
             className="relative flex-1 min-w-0 h-[640px] [mask-image:radial-gradient(115%_115%_at_50%_45%,#000_55%,transparent_92%)] [-webkit-mask-image:radial-gradient(115%_115%_at_50%_45%,#000_55%,transparent_92%)] max-[1280px]:h-[clamp(420px,56vh,640px)] max-[900px]:w-full max-[900px]:h-[52vh]"
             data-rise
           >
-            <ContactCabinScene />
-            <span className="absolute left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-[0.12em] uppercase text-brand-steel border border-brand-line whitespace-nowrap bottom-[6%] bg-[rgba(10,10,11,0.6)] px-[16px] py-[8px]">{cms?.modelCaption || 'Site Office Cabin — live 3D preview'}</span>
+            <img src="/images/contact-hero-cabin.png" alt="Quad Cabins reception cabin" className="w-full h-full object-contain" />
+            <span className="absolute left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-[0.12em] uppercase text-brand-steel border border-brand-line whitespace-nowrap bottom-[6%] bg-[rgba(10,10,11,0.6)] px-[16px] py-[8px]">{cms?.modelCaption || 'Reception Cabin'}</span>
           </div>
         </div>
       </div>

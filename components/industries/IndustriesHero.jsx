@@ -1,22 +1,16 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import dynamic from 'next/dynamic';
 import { useRef } from 'react';
 import { useCountUp } from '@/hooks/useCountUp.js';
 import { useCmsSection } from '@/lib/cms/CmsContext.js';
-import CabinLoading from '@/components/layout/CabinLoading.jsx';
 import {
   pageHeroSectionClass, pageHeroBgClass, pageHeroBgOverlayClass, pageHeroCopyClass, pageHeroH1Class, pageHeroSubClass, pageHeroCtasClass,
   pageHeroFlexClass, wrapClass, eyebrowClass, eyebrowBarClass, btnPrimaryClass, btnGhostClass, scrollCueClass, scrollCueLineClass,
   trustStripClass, trustItemClass, trustNumClass, trustLabelClass,
   industriesHighlightsClass, industriesHighlightItemClass,
-  industriesHeroVisualClass, industriesHeroFrameClass, industriesHeroHintClass,
+  industriesHeroVisualClass, industriesHeroFrameClass,
 } from '@/lib/ui/classNames.js';
-
-// three.js + fiber + drei + postprocessing are a heavy parse/exec cost —
-// dynamically imported client-only, same as the Products page intro cabin.
-const IndustriesHeroCabin = dynamic(() => import('@/journey/showcase/IndustriesHeroCabin.jsx'), { ssr: false, loading: CabinLoading });
 
 const trust = [
   { to: 6, suffix: '', label: 'Industries Served' },
@@ -75,8 +69,7 @@ export default function IndustriesHero({ data }){
         <div className={industriesHeroVisualClass} data-rise>
           <div aria-hidden="true" className="absolute -z-1 pointer-events-none [inset:-16%] bg-[radial-gradient(58%_58%_at_50%_55%,rgba(225,27,35,0.14),transparent_68%)] blur-[6px]" />
           <div className={industriesHeroFrameClass}>
-            <IndustriesHeroCabin />
-            <span className={industriesHeroHintClass}>Drag to rotate</span>
+            <img src="/images/industries-hero-cabin.png" alt="Quad Cabins site office cabin" className="w-full h-full object-contain" />
           </div>
         </div>
       </div>
