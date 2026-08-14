@@ -151,7 +151,28 @@ export default function Experience(){
         // Temporary load-time diagnostic — remove once the slow-load report is
         // resolved. Fires once the WebGL context + renderer exist (before the
         // first frame is drawn), timed from navigation start.
-        onCreated={()=>console.log(`[perf] WebGL context ready: ${performance.now().toFixed(1)}ms since navigation start`)}
+        onCreated={(state)=>{
+          console.log(`[perf] WebGL context ready: ${performance.now().toFixed(1)}ms since navigation start`);
+          // A GPU driver reset/OOM can drop the WebGL context at any time —
+          // three.js already recovers it automatically (recompiling shaders,
+          // re-uploading textures), but that takes several seconds, and until
+          // now the canvas just went blank/frozen for that whole window. This
+          // hides the canvas the instant that happens, revealing the backdrop
+          // photo already sitting underneath it (JourneyStage.jsx), and
+          // un-hides it the moment the context comes back — so a rare GPU
+          // hiccup reads as "the photo is showing" instead of "this is broken".
+          // No effect on the normal path: canvas opacity is untouched unless
+          // a context loss actually happens.
+          const canvas = state.gl.domElement;
+          canvas.addEventListener('webglcontextlost', ()=>{
+            console.warn('[Experience] WebGL context lost — hiding canvas until the GPU recovers.');
+            canvas.style.opacity = '0';
+          });
+          canvas.addEventListener('webglcontextrestored', ()=>{
+            console.log('[Experience] WebGL context restored.');
+            canvas.style.opacity = '';
+          });
+        }}
       >
         {/* no opaque background — the hero backdrop photo shows through the canvas */}
         <fogExp2 attach="fog" args={['#3a352e', 0.014]} />
