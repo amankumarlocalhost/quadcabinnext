@@ -1,5 +1,10 @@
 import * as THREE from 'three';
 
+// Temporary load-time diagnostics — remove once the slow-load report is
+// resolved. Times the synchronous procedural-texture generation that runs
+// once when this module first evaluates.
+const __texGenStart = typeof performance !== 'undefined' ? performance.now() : 0;
+
 function makeTex(w, h, draw, colorSpace = THREE.SRGBColorSpace){
   const c = document.createElement('canvas'); c.width = w; c.height = h;
   draw(c.getContext('2d'), w, h);
@@ -449,3 +454,8 @@ export const rugTex = makeTex(256, 256, (ctx,w,h)=>{
   ctx.strokeStyle = '#e11b23'; ctx.lineWidth = 3; ctx.strokeRect(30,30,w-60,h-60);
   speckle(ctx,w,h,900,0.12);
 });
+
+// Temporary load-time diagnostics — remove once the slow-load report is resolved.
+if(typeof performance !== 'undefined'){
+  console.log(`[perf] textures.js procedural generation: ${(performance.now()-__texGenStart).toFixed(1)}ms`);
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { Component, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Environment, Lightformer, ContactShadows } from '@react-three/drei';
@@ -43,6 +43,20 @@ function SunRig({ mobile }){
   );
 }
 
+// Temporary load-time diagnostic — remove once the slow-load report is
+// resolved. Logs the first actually-rendered frame (after GPU shader
+// compilation for every material in the scene, which onCreated doesn't
+// capture since that fires right as the context is created, before draw calls).
+function FirstFrameMarker(){
+  const logged = useRef(false);
+  useFrame(()=>{
+    if(logged.current) return;
+    logged.current = true;
+    console.log(`[perf] first rendered frame: ${performance.now().toFixed(1)}ms since navigation start`);
+  });
+  return null;
+}
+
 /* lets App pause this canvas once the walkthrough is finished and hidden */
 function FrameGate(){
   const setFrameloop = useThree(s=>s.setFrameloop);
@@ -51,6 +65,23 @@ function FrameGate(){
     return ()=>{ if(journey.mainLoop === setFrameloop) journey.mainLoop = null; };
   }, [setFrameloop]);
   return null;
+}
+
+// WebGL context creation can fail for reasons entirely outside this app
+// (GPU disabled/blocklisted by the browser, too many contexts already open,
+// unsupported device) — without this boundary that throws past Canvas and
+// crashes the whole homepage. JourneyStage already renders the backdrop
+// photo and hero copy as siblings of <Experience>, not inside it, so on
+// failure they keep working; only the 3D layer itself is skipped.
+class CanvasErrorBoundary extends Component {
+  state = { failed:false };
+  static getDerivedStateFromError(){ return { failed:true }; }
+  componentDidCatch(error){
+    console.error('3D experience failed to initialize, falling back to the static hero backdrop:', error);
+  }
+  render(){
+    return this.state.failed ? null : this.props.children;
+  }
 }
 
 function Ground({ mobile }){
@@ -97,6 +128,7 @@ export default function Experience(){
 
   return (
     <div id="stage" className="fixed inset-0 w-screen h-screen z-1 [&>canvas]:block [&>canvas]:w-full [&>canvas]:h-full">
+      <CanvasErrorBoundary>
       <Canvas
         shadows={mobile ? false : 'soft'}
         // capped at 1.5 (not 2) on desktop: the postprocessing chain (Bloom,
@@ -116,6 +148,10 @@ export default function Experience(){
         // depth-texture render-target handling. See package.json's `three` range.
         gl={{ antialias:false, powerPreference:'high-performance', alpha:true, toneMapping:THREE.ACESFilmicToneMapping }}
         camera={{ fov:45, near:0.1, far:120, position:[0.3, 2.65, 15.2] }}
+        // Temporary load-time diagnostic — remove once the slow-load report is
+        // resolved. Fires once the WebGL context + renderer exist (before the
+        // first frame is drawn), timed from navigation start.
+        onCreated={()=>console.log(`[perf] WebGL context ready: ${performance.now().toFixed(1)}ms since navigation start`)}
       >
         {/* no opaque background — the hero backdrop photo shows through the canvas */}
         <fogExp2 attach="fog" args={['#3a352e', 0.014]} />
@@ -142,7 +178,9 @@ export default function Experience(){
         <CameraRig />
         {!mobile && <Effects />}
         <FrameGate />
+        <FirstFrameMarker />
       </Canvas>
+      </CanvasErrorBoundary>
     </div>
   );
 }
