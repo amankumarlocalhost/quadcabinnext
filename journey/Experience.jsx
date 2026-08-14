@@ -32,7 +32,7 @@ function SunRig({ mobile }){
       position={[7, 11, 9]}
       intensity={0}
       castShadow={!mobile}
-      shadow-mapSize={mobile ? [512,512] : [2048,2048]}
+      shadow-mapSize={mobile ? [512,512] : [1536,1536]}
       shadow-bias={-0.0004}
       shadow-normalBias={0.03}
       shadow-camera-left={-9}
@@ -99,7 +99,13 @@ export default function Experience(){
     <div id="stage" className="fixed inset-0 w-screen h-screen z-1 [&>canvas]:block [&>canvas]:w-full [&>canvas]:h-full">
       <Canvas
         shadows={mobile ? false : 'soft'}
-        dpr={mobile ? 1 : [1, 2]}
+        // capped at 1.5 (not 2) on desktop: the postprocessing chain (Bloom,
+        // DepthOfField, N8AO) runs its full-screen passes at this resolution,
+        // so this is the single biggest lever on GPU/shader-compile time for
+        // first paint — DoF/Bloom themselves are left untouched so the
+        // cinematic look stays intact; only pixel density drops slightly on
+        // very high-DPI (retina/4K) screens, invisible on standard displays.
+        dpr={mobile ? 1 : [1, 1.5]}
         // antialias is off on desktop because the postprocessing EffectComposer
         // (Effects.jsx, desktop-only) already resolves its own framebuffer, so
         // renderer-level MSAA would just be redundant work. Note: the recurring
