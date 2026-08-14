@@ -8,8 +8,8 @@ import Footer from '@/components/layout/Footer.jsx';
 import Toast from '@/components/layout/Toast.jsx';
 
 import ContactHero from '@/components/contact/ContactHero.jsx';
+import ContactFeatureStrip from '@/components/contact/ContactFeatureStrip.jsx';
 import ContactMapSection from '@/components/contact/ContactMapSection.jsx';
-import ContactFormSection from '@/components/contact/ContactFormSection.jsx';
 
 import { useAboutScroll } from '@/hooks/useAboutScroll.js';
 import { useQuoteStore } from '@/lib/store/quoteStore.js';
@@ -44,9 +44,9 @@ export default function ContactPageView(){
       <Header onNavHome={()=>router.push('/')} />
 
       <main className="relative z-10">
-        <ContactHero />
+        <ContactHero onSubmit={submit} />
+        <ContactFeatureStrip />
         <ContactMapSection />
-        <ContactFormSection onSubmit={submit} />
       </main>
 
       <Footer />
