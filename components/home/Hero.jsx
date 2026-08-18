@@ -27,7 +27,7 @@ export default function Hero({ onGoTo }){
       {/* soft depth wash behind the copy and the cabin photo */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none bg-[radial-gradient(46%_60%_at_16%_42%,rgba(225,27,35,0.08),transparent_70%),radial-gradient(50%_60%_at_84%_46%,rgba(255,190,120,0.08),transparent_70%)]" />
 
-      <div className={`${wrapClass} relative z-2 grid [grid-template-columns:minmax(0,0.94fr)_minmax(0,1.06fr)] gap-[clamp(24px,3.5vw,56px)] items-center pt-[110px] pb-[64px] max-[900px]:grid-cols-1 max-[900px]:gap-[32px] max-[900px]:pt-[110px] max-[900px]:pb-[40px]`}>
+      <div className={`${wrapClass} relative z-2 grid grid-cols-1 min-[901px]:[grid-template-columns:minmax(0,0.94fr)_minmax(0,1.06fr)] gap-[32px] min-[901px]:gap-[clamp(24px,3.5vw,56px)] items-center pt-[110px] pb-[40px] min-[901px]:pb-[64px]`}>
         <div>
           <div className={`${eyebrowClass} opacity-0`} data-rise><span className={eyebrowBarClass}></span>{cms?.eyebrow || 'FACTORY-BUILT · SITE-READY'}</div>
           <h1
