@@ -29,27 +29,27 @@ export default function Hero({ onGoTo }){
 
       <div className={`${wrapClass} relative z-2 grid [grid-template-columns:minmax(0,0.94fr)_minmax(0,1.06fr)] gap-[clamp(24px,3.5vw,56px)] items-center pt-[110px] pb-[64px] max-[900px]:grid-cols-1 max-[900px]:gap-[32px] max-[900px]:pt-[110px] max-[900px]:pb-[40px]`}>
         <div>
-          <div className={eyebrowClass} data-rise><span className={eyebrowBarClass}></span>{cms?.eyebrow || 'FACTORY-BUILT · SITE-READY'}</div>
+          <div className={`${eyebrowClass} opacity-0`} data-rise><span className={eyebrowBarClass}></span>{cms?.eyebrow || 'FACTORY-BUILT · SITE-READY'}</div>
           <h1
             data-rise
-            className={`${h1Class} [font-size:clamp(34px,6.4vw,66px)] max-[480px]:[font-size:clamp(34px,10vw,48px)] max-[320px]:[font-size:clamp(28px,11vw,40px)]`}
+            className={`${h1Class} opacity-0 [font-size:clamp(34px,6.4vw,66px)] max-[480px]:[font-size:clamp(34px,10vw,48px)] max-[320px]:[font-size:clamp(28px,11vw,40px)]`}
           >
             {cms?.heading ? <>{cms.heading.split(cms.highlightedText || 'Stronger')[0]}<br /><span className="text-brand-red">{cms.highlightedText || 'Stronger'}</span>{cms.heading.split(cms.highlightedText || 'Stronger')[1]}</> : <>Smart Spaces.<br /><span className="text-brand-red">Stronger</span> Projects.</>}
           </h1>
           <p
             data-rise
-            className="text-[18px] text-brand-off max-w-[480px] mt-[22px] max-[900px]:text-[15.5px] max-[480px]:text-[15px] max-[480px]:max-w-full"
+            className="opacity-0 text-[18px] text-brand-off max-w-[480px] mt-[22px] max-[900px]:text-[15.5px] max-[480px]:text-[15px] max-[480px]:max-w-full"
           >
             {cms?.description || 'Quad Cabins engineers portable and modular cabins for construction, industrial and infrastructure sites across India — built in the factory, delivered ready to work.'}
           </p>
-          <div data-hero-ctas data-rise className="flex gap-[16px] mt-[34px] flex-wrap">
+          <div data-hero-ctas data-rise className="opacity-0 flex gap-[16px] mt-[34px] flex-wrap">
             <button className={btnPrimaryClass} onClick={()=>onGoTo(cms?.primaryCta?.target || '#contact')}>{cms?.primaryCta?.label || 'Get a Free Quote'}</button>
             <button className={btnGhostClass} onClick={()=>onGoTo(cms?.secondaryCta?.target || '#site-office')}>{cms?.secondaryCta?.label || 'Explore Products'}</button>
           </div>
         </div>
 
         {/* Cabin photo — contained and framed, not a background */}
-        <div className="relative" data-rise>
+        <div className="relative opacity-0" data-rise>
           <div aria-hidden="true" className="absolute left-1/2 bottom-[3%] -translate-x-1/2 w-[82%] h-[30px] rounded-full bg-black/60 blur-2xl" />
           <img
             src="/images/home-hero-bg.png"
@@ -58,7 +58,7 @@ export default function Hero({ onGoTo }){
           />
         </div>
       </div>
-      <div data-rise className={`${scrollCueClass} max-[900px]:hidden`}><span>{cms?.scrollLabel || 'Scroll to explore'}</span><span className={scrollCueLineClass}></span></div>
+      <div data-rise className={`${scrollCueClass} opacity-0 max-[900px]:hidden`}><span>{cms?.scrollLabel || 'Scroll to explore'}</span><span className={scrollCueLineClass}></span></div>
     </section>
   );
 }
