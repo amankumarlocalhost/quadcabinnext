@@ -6,9 +6,9 @@ import { showcase } from './state.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Page-scoped Lenis + ScrollTrigger driving `showcase.target` — mirrors
-// useJourneyScroll.js but fully independent so it can never leak into (or
-// be affected by) the home page's journey/Lenis instance.
+// Page-scoped Lenis + ScrollTrigger driving `showcase.target` — fully
+// independent of the home page's own Lenis instance (useHomeScroll.js) so
+// the two scroll experiences never leak into each other.
 export function useShowcaseScroll({ trackRef, heroRef, productsData }){
   const segmentCount = Array.isArray(productsData) ? Math.max(1, productsData.length) : 4;
   // productsData is refetched (and re-created as a new array) every few
@@ -21,7 +21,7 @@ export function useShowcaseScroll({ trackRef, heroRef, productsData }){
     showcase.target = 0;
     showcase.p = 0;
     const lenis = new Lenis({ duration: 1.2, smoothWheel: true });
-    // Force the page to actually start at the top — see useJourneyScroll.js.
+    // Force the page to actually start at the top — see useHomeScroll.js.
     lenis.scrollTo(0, { immediate: true });
     lenis.on('scroll', ScrollTrigger.update);
     const rafCb = (time)=>lenis.raf(time*1000);

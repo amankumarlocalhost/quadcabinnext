@@ -32,6 +32,16 @@
   color: var(--color-brand-white);
 }
 
+/* Lenis (see lib scroll setup) owns scroll physics on this site, so the
+   browser's native scroll-anchoring heuristic is fighting a scroll position
+   it doesn't control — its only visible effect here was spamming DevTools
+   with "Skipping auto-scroll behavior..." for every fixed/sticky element.
+   Turning it off site-wide is the standard fix when a smooth-scroll library
+   is in charge. */
+html {
+  overflow-anchor: none;
+}
+
 /* Keyframes: Tailwind's `animate-*` utilities reference a keyframes name,
    but the @keyframes body itself has no className form — it must live in
    CSS. These are ported 1:1 from the previous index.css and are referenced

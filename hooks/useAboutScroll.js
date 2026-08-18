@@ -14,7 +14,7 @@ export function useAboutScroll(lenisRef){
   useEffect(()=>{
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
     lenisRef.current = lenis;
-    // Force the page to actually start at the top — see useJourneyScroll.js.
+    // Force the page to actually start at the top — see useHomeScroll.js.
     lenis.scrollTo(0, { immediate: true });
     lenis.on('scroll', ScrollTrigger.update);
     const rafCb = (time)=>lenis.raf(time*1000);

@@ -3,16 +3,12 @@
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useJourneyAudio } from '@/journey/audio.js';
-import { useJourneyScroll } from '@/hooks/useJourneyScroll.js';
+import { useHomeScroll } from '@/hooks/useHomeScroll.js';
 
 import Header from '@/components/layout/Header.jsx';
 import Footer from '@/components/layout/Footer.jsx';
-import ProgressHUD from '@/components/layout/ProgressHUD.jsx';
-import SoundToggle from '@/components/layout/SoundToggle.jsx';
 import Toast from '@/components/layout/Toast.jsx';
 
-import JourneyStage from '@/components/home/JourneyStage.jsx';
 import Hero from '@/components/home/Hero.jsx';
 import SiteOfficeSection from '@/components/home/SiteOfficeSection.jsx';
 import ProductSection from '@/components/home/ProductSection.jsx';
@@ -33,16 +29,11 @@ export default function HomePageView() {
   const cmsProducts = productContent?.items;
   const siteOffice = cmsProducts?.find((product) => product.id === 'site-office');
   const followingProducts = cmsProducts?.filter((product) => product.id !== 'site-office') || products;
-  const trackRef = useRef(null);
-  const heroRef = useRef(null);
   const lenisRef = useRef(null);
-  const plateRef = useRef(null);
 
   const toast = useQuoteStore((s) => s.toast);
   const dismissToast = useQuoteStore((s) => s.dismissToast);
   const submitQuote = useQuoteStore((s) => s.submit);
-
-  const audio = useJourneyAudio();
 
   // Always start from the top
   useEffect(() => {
@@ -58,12 +49,7 @@ export default function HomePageView() {
     });
   }, []);
 
-  useJourneyScroll({
-    trackRef,
-    heroRef,
-    plateRef,
-    lenisRef,
-  });
+  useHomeScroll(lenisRef);
 
   const goTo = (sel) => {
     lenisRef.current?.scrollTo(sel, {
@@ -78,24 +64,9 @@ export default function HomePageView() {
 
   return (
     <>
-      <JourneyStage />
-
-      <ProgressHUD plateRef={plateRef} />
-
-      <SoundToggle audio={audio} />
-
       <Header onNavHome={() => lenisRef.current?.scrollTo(0)} />
 
-      <Hero
-        heroRef={heroRef}
-        onGoTo={goTo}
-      />
-
-      {/* Camera Scroll Journey */}
-      <div
-        className="h-[420vh] relative z-5"
-        ref={trackRef}
-      ></div>
+      <Hero onGoTo={goTo} />
 
       {/* Main Content */}
       {/* This multi-layer `background` shorthand (gradient + fixed photo + a
@@ -105,7 +76,7 @@ export default function HomePageView() {
           URL's own characters. Kept as inline style as a deliberate, narrow
           exception; every other style on this page is a Tailwind className. */}
       <main
-        className="relative z-10 -mt-[55vh]"
+        className="relative z-10"
         style={{
           background: "linear-gradient(180deg, transparent 0, rgba(5,5,5,0.6) 55vh, rgba(5,5,5,0.85) 100%), url('https://images.unsplash.com/photo-1722079358008-2c72a8973998?fm=jpg&q=80&w=2400&auto=format&fit=crop') center 35% / cover no-repeat fixed, #050505",
         }}

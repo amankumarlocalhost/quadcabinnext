@@ -29,12 +29,8 @@ function getServerSnapshot() {
   return false;
 }
 
-// Mirrors the tablet/phone breakpoint used across the CSS and
-// useJourneyScroll's stage-shift logic (<=900px), so any viewport that gets
-// the compact hero layout also gets the lighter 3D render quality that
-// layout is sized for — otherwise tablets in the 768-900px band (e.g. an
-// iPad Mini/iPad portrait) got the squeezed mobile layout while still
-// paying for full desktop-grade antialiasing/shadows/post-processing.
+// Mirrors the tablet/phone breakpoint (<=900px) used across the CSS, so any
+// viewport that gets the compact layout is detected consistently in JS too.
 export function useIsMobile() {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
